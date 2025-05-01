@@ -1,0 +1,389 @@
+2025-05-02T00:00:02.590+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-02T00:00:02.604+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-02T00:00:02.607+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-05-02T00:00:03.009+05:30  WARN 21632 --- [UserService] [http-nio-8086-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.cts.model.Role` from String "ADMIN": not one of the values accepted for Enum class: [STUDENT, INSTRUCTOR]]
+2025-05-02T00:00:11.550+05:30  WARN 21632 --- [UserService] [http-nio-8086-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.cts.model.Role` from String "ADMIN": not one of the values accepted for Enum class: [STUDENT, INSTRUCTOR]]
+2025-05-02T00:00:27.605+05:30 ERROR 21632 --- [UserService] [http-nio-8086-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.cts.service.UserService.createUser(com.cts.model.User)" because "this.service" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "com.cts.service.UserService.createUser(com.cts.model.User)" because "this.service" is null
+	at com.cts.controller.UserController.createUser(UserController.java:25) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.40.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.40.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-05-02T00:01:39.594+05:30 ERROR 21632 --- [UserService] [http-nio-8086-exec-7] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.cts.service.UserService.getAllUsers()" because "this.service" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "com.cts.service.UserService.getAllUsers()" because "this.service" is null
+	at com.cts.controller.UserController.getAllUsers(UserController.java:50) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.40.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.6.jar:6.2.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.40.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.6.jar:6.2.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.40.jar:10.1.40]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-05-02T00:03:16.807+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-02T00:03:16.813+05:30  INFO 21632 --- [UserService] [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:03:16.824+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:03:16.831+05:30  INFO 21632 --- [UserService] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:03:16.832+05:30  INFO 21632 --- [UserService] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-05-02T00:03:16.845+05:30  INFO 21632 --- [UserService] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-05-02T00:03:17.009+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:03:17.009+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:03:17.362+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:03:17.380+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 1 JPA repository interface.
+2025-05-02T00:03:17.444+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:03:17.545+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:03:17.547+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:03:17.547+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:03:17.624+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:03:17.625+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 611 ms
+2025-05-02T00:03:17.718+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:03:17.726+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:03:17.754+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:03:17.757+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-05-02T00:03:17.789+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a117e36
+2025-05-02T00:03:17.789+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-05-02T00:03:17.793+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:03:17.793+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:03:17.901+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:03:17.926+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:03:18.052+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:03:18.280+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:03:18.401+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:03:18.421+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 1.486 seconds (process running for 457.419)
+2025-05-02T00:03:18.424+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:03:30.876+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-02T00:03:30.878+05:30  INFO 21632 --- [UserService] [Thread-13] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:03:30.887+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:03:30.891+05:30  INFO 21632 --- [UserService] [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:03:30.892+05:30  INFO 21632 --- [UserService] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-05-02T00:03:30.910+05:30  INFO 21632 --- [UserService] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2025-05-02T00:03:31.050+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:03:31.051+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:03:31.449+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:03:31.480+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 1 JPA repository interface.
+2025-05-02T00:03:31.539+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:03:31.684+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:03:31.685+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:03:31.686+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:03:31.772+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:03:31.772+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 714 ms
+2025-05-02T00:03:31.843+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:03:31.847+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:03:31.863+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:03:31.865+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2025-05-02T00:03:31.893+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@703142e2
+2025-05-02T00:03:31.893+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2025-05-02T00:03:31.896+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:03:31.896+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:03:31.995+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:03:32.016+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:03:32.100+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:03:32.252+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:03:32.357+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:03:32.381+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 1.395 seconds (process running for 471.378)
+2025-05-02T00:03:32.384+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:03:39.166+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-02T00:03:39.166+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-02T00:03:39.168+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-05-02T00:04:15.064+05:30  WARN 21632 --- [UserService] [http-nio-8086-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.cts.model.Role` from String "STUDENTT": not one of the values accepted for Enum class: [STUDENT, INSTRUCTOR]]
+2025-05-02T00:06:11.385+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-02T00:06:11.387+05:30  INFO 21632 --- [UserService] [Thread-19] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:06:11.391+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:06:11.395+05:30  INFO 21632 --- [UserService] [Thread-19] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:06:11.396+05:30  INFO 21632 --- [UserService] [Thread-19] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2025-05-02T00:06:11.403+05:30  INFO 21632 --- [UserService] [Thread-19] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2025-05-02T00:06:11.492+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:06:11.492+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:06:11.675+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:06:11.689+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 1 JPA repository interface.
+2025-05-02T00:06:11.734+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:06:11.821+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:06:11.822+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:06:11.823+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:06:11.870+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:06:11.870+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 374 ms
+2025-05-02T00:06:11.918+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:06:11.924+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:06:11.935+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:06:11.937+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2025-05-02T00:06:11.957+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@459d4449
+2025-05-02T00:06:11.958+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2025-05-02T00:06:11.960+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:06:11.960+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:06:12.021+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:06:12.033+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:06:12.122+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:06:12.338+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:06:12.407+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:06:12.426+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 0.974 seconds (process running for 631.424)
+2025-05-02T00:06:12.430+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:06:36.277+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-02T00:06:36.287+05:30  INFO 21632 --- [UserService] [Thread-25] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:06:36.301+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:06:36.306+05:30  INFO 21632 --- [UserService] [Thread-25] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:06:36.307+05:30  INFO 21632 --- [UserService] [Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2025-05-02T00:06:36.324+05:30  INFO 21632 --- [UserService] [Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2025-05-02T00:06:36.541+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:06:36.542+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:06:37.074+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:06:37.103+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 1 JPA repository interface.
+2025-05-02T00:06:37.271+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:06:37.453+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:06:37.455+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:06:37.456+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:06:37.583+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:06:37.584+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1032 ms
+2025-05-02T00:06:37.710+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:06:37.715+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:06:37.737+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:06:37.740+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2025-05-02T00:06:37.774+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23801ebb
+2025-05-02T00:06:37.774+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2025-05-02T00:06:37.777+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:06:37.778+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-6)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:06:37.887+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:06:37.905+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:06:38.064+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:06:38.310+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:06:38.482+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:06:38.517+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 2.09 seconds (process running for 657.515)
+2025-05-02T00:06:38.526+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:07:15.579+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-02T00:07:15.590+05:30  INFO 21632 --- [UserService] [Thread-31] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:07:15.598+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:07:15.601+05:30  INFO 21632 --- [UserService] [Thread-31] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:07:15.602+05:30  INFO 21632 --- [UserService] [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2025-05-02T00:07:15.608+05:30  INFO 21632 --- [UserService] [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2025-05-02T00:07:15.752+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:07:15.752+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:07:16.102+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:07:16.126+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 1 JPA repository interface.
+2025-05-02T00:07:16.186+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:07:16.289+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:07:16.290+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:07:16.290+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:07:16.335+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:07:16.335+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 580 ms
+2025-05-02T00:07:16.384+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:07:16.388+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:07:16.406+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:07:16.407+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2025-05-02T00:07:16.432+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4997621c
+2025-05-02T00:07:16.433+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2025-05-02T00:07:16.435+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:07:16.436+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-7)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:07:16.494+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:07:16.507+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:07:16.595+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:07:16.737+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:07:16.794+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:07:16.809+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 1.139 seconds (process running for 695.807)
+2025-05-02T00:07:16.813+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:07:35.644+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
+2025-05-02T00:07:35.647+05:30  INFO 21632 --- [UserService] [Thread-37] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:07:35.661+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:07:35.668+05:30  INFO 21632 --- [UserService] [Thread-37] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:07:35.669+05:30  INFO 21632 --- [UserService] [Thread-37] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2025-05-02T00:07:35.684+05:30  INFO 21632 --- [UserService] [Thread-37] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2025-05-02T00:07:35.901+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:07:35.902+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:07:36.399+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:07:36.418+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 1 JPA repository interface.
+2025-05-02T00:07:36.483+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:07:36.583+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:07:36.585+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:07:36.585+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:07:36.645+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:07:36.645+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 740 ms
+2025-05-02T00:07:36.703+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:07:36.707+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:07:36.720+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:07:36.722+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2025-05-02T00:07:36.743+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a201ff4
+2025-05-02T00:07:36.744+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2025-05-02T00:07:36.746+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:07:36.747+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-8)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:07:36.820+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:07:36.841+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:07:36.996+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:07:37.249+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:07:37.365+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:07:37.391+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 1.602 seconds (process running for 716.389)
+2025-05-02T00:07:37.394+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:07:42.260+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-02T00:07:42.261+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-02T00:07:42.263+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-05-02T00:07:42.275+05:30  WARN 21632 --- [UserService] [http-nio-8086-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'userId' for method parameter type int is not present]
+2025-05-02T00:08:14.147+05:30  WARN 21632 --- [UserService] [http-nio-8086-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'userId' for method parameter type int is not present]
+2025-05-02T00:08:35.314+05:30  INFO 21632 --- [UserService] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-02T00:08:35.320+05:30  INFO 21632 --- [UserService] [Thread-43] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-02T00:08:35.339+05:30  INFO 21632 --- [UserService] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-02T00:08:35.346+05:30  INFO 21632 --- [UserService] [Thread-43] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:08:35.349+05:30  INFO 21632 --- [UserService] [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2025-05-02T00:08:35.375+05:30  INFO 21632 --- [UserService] [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+2025-05-02T00:08:35.668+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Starting UserServiceApplication using Java 21.0.6 with PID 21632 (C:\Users\2401038\git\repository\UserService\target\classes started by 2401038 in C:\Users\2401038\git\repository\UserService)
+2025-05-02T00:08:35.669+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-05-02T00:08:36.545+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-02T00:08:36.595+05:30  INFO 21632 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 1 JPA repository interface.
+2025-05-02T00:08:36.727+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=fefbd7b9-60ee-3f4b-b7b9-3148150dd4c3
+2025-05-02T00:08:36.873+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8086 (http)
+2025-05-02T00:08:36.875+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-02T00:08:36.876+05:30  INFO 21632 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-05-02T00:08:36.997+05:30  INFO 21632 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-02T00:08:36.998+05:30  INFO 21632 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1320 ms
+2025-05-02T00:08:37.123+05:30  INFO 21632 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-02T00:08:37.138+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-02T00:08:37.182+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-02T00:08:37.189+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2025-05-02T00:08:37.236+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@9527268
+2025-05-02T00:08:37.236+05:30  INFO 21632 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2025-05-02T00:08:37.240+05:30  WARN 21632 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-02T00:08:37.241+05:30  INFO 21632 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-9)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-02T00:08:37.349+05:30  INFO 21632 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-02T00:08:37.377+05:30  INFO 21632 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-02T00:08:37.541+05:30  WARN 21632 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-02T00:08:37.791+05:30  WARN 21632 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-05-02T00:08:37.894+05:30  INFO 21632 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8086 (http) with context path '/'
+2025-05-02T00:08:37.915+05:30  INFO 21632 --- [UserService] [restartedMain] com.cts.UserServiceApplication           : Started UserServiceApplication in 2.39 seconds (process running for 776.913)
+2025-05-02T00:08:37.920+05:30  INFO 21632 --- [UserService] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-05-02T00:08:44.775+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-02T00:08:44.775+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-02T00:08:44.777+05:30  INFO 21632 --- [UserService] [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
