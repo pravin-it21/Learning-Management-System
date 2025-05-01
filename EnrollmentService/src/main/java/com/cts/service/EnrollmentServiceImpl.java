@@ -1,15 +1,10 @@
 package com.cts.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cts.model.Course;
 import com.cts.model.Enrollment;
-import com.cts.repository.CourseRepository;
-import com.cts.repository.EnrollmentRepository;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {

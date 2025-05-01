@@ -12,33 +12,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.model.Course;
-import com.cts.service.CourseService;
+import com.cts.model.Enrollment;
+import com.cts.service.EnrollmentService;
 
 @RestController
 @RequestMapping("/enrollments")
 public class EnrollmentController {
 	@Autowired
-	CourseService service;
+	EnrollmentService service;
 	
 	@PostMapping("/create")
-	public String createCourse(@RequestBody Course  course) {
-		return service.createCourse(course);
+	public String createCourse(@RequestBody Enrollment  enrollment) {
+		return service.createCourse(enrollment);
 	}
 
 	@PutMapping("/update")
-	public Course updateCourse(@RequestBody Course course) {
-		return service.updateCourse(course);
+	public Enrollment updateCourse(@RequestBody Enrollment enrollment) {
+		return service.updateCourse(enrollment);
 	}
 
 	@GetMapping("/fetchById/{cid}")
-	public Course getCourse(@PathVariable("cid") int courseId) {
+	public Enrollment getCourse(@PathVariable("cid") int courseId) {
 		return service.getCourse(courseId);
 	}
 
 	@GetMapping("/fetchAll")
 
-	public List<Course> getAllCourses() {
+	public List<Enrollment> getAllCourses() {
 		return service.getAllCourses();
 	}
 	
