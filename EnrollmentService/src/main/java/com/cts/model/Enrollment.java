@@ -1,11 +1,12 @@
 package com.cts.model;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;   
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,15 +18,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Enrollment {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int enrollmentId;
-
-	private String courseTitle;
-	private String courseDescription;
-	private String courseCategory;
-	private int instructorId;
-	@OneToMany
-	private List<Enrollment> prerequistes;
-	private String courseLanguage;
-	private int courseDuration;
+	@ManyToOne
+	@JoinColumn(name="user_id",nullable=false)
+	private User user;
+	
 
 }
