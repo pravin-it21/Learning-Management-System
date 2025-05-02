@@ -1,12 +1,15 @@
 package com.cts.model;
 
+import java.time.LocalDateTime;
+
+import com.cts.dto.Course;
+import com.cts.dto.User;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;   
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +23,8 @@ public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int enrollmentId;
-	@ManyToOne
-	@JoinColumn(name="user_id",nullable=false)
 	private User user;
-	
+	private Course course;
+	private LocalDateTime enrollmentDate = LocalDateTime.now();
 
 }
