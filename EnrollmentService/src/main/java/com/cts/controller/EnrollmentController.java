@@ -12,41 +12,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.dto.EnrollCourseRequestDTO;
 import com.cts.model.Enrollment;
 import com.cts.service.EnrollmentService;
 
 @RestController
-@RequestMapping("/enrollments")
+@RequestMapping("/enroll")
 public class EnrollmentController {
 	@Autowired
 	EnrollmentService service;
-	
-	@PostMapping("/create")
-	public String createCourse(@RequestBody Enrollment  enrollment) {
-		return service.createCourse(enrollment);
+
+	@PostMapping("/save")
+	public String saveEnrollment(@RequestBody EnrollCourseRequestDTO enrollCourse) {
+		return service.saveEnrollment(enrollCourse);
 	}
 
 	@PutMapping("/update")
-	public Enrollment updateCourse(@RequestBody Enrollment enrollment) {
-		return service.updateCourse(enrollment);
+	public Enrollment updateEnrollment(@RequestBody EnrollCourseRequestDTO enrollCourse) {
+		return service.updateEnrollment(enrollCourse);
 	}
 
-	@GetMapping("/fetchById/{cid}")
-	public Enrollment getCourse(@PathVariable("cid") int courseId) {
-		return service.getCourse(courseId);
+	@GetMapping("/fetchById/{eid}")
+	public Enrollment getEnrollment(@PathVariable("eid") int enrollmentId) {
+		return service.getEnrollment(enrollmentId);
+	}
+
+	@GetMapping("/fetchByUser/{uid}")
+	public List<Enrollment> getEnrollmentsByUser(@PathVariable("uid") int userId) {
+		return service.getEnrollmentsByUser(userId);
+	}
+
+	@GetMapping("/fetchByCourse/{cid}")
+	public List<Enrollment> getEnrollmentsByCourse(@PathVariable("cid") int courseId) {
+		return service.getEnrollmentsByCourse(courseId);
 	}
 
 	@GetMapping("/fetchAll")
+	public List<Enrollment> getAllEnrollments() {
+		return service.getAllEnrollments();
+	}
 
-	public List<Enrollment> getAllCourses() {
-		return service.getAllCourses();
+	@DeleteMapping("/cancel/{eid}")
+	public String cancelEnrollment(@PathVariable("eid") int enrollmentId) {
+		return service.cancelEnrollment(enrollmentId);
 	}
-	
-	@DeleteMapping("/delete/{cid}")
-	public String deleteCourse(@PathVariable("cid") int courseId) {
-		return service.deleteCourse(courseId);
-	}
-	
-	
 
 }

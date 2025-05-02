@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cts.dto.Course;
-import com.cts.dto.EnrollCourse;
+import com.cts.dto.EnrollCourseRequestDTO;
 import com.cts.model.Enrollment;
 import com.cts.repository.EnrollmentRepository;
 
@@ -14,31 +13,29 @@ import com.cts.repository.EnrollmentRepository;
 public class EnrollmentServiceImpl implements EnrollmentService {
 	@Autowired
 	EnrollmentRepository repository;
-	
-	
-	@Override
-	public String enrollStudent(EnrollCourse enrollCourse) {
-		
-		repository.save(enrollCourse.getEmp());
-		String response = departmentClient.saveDepartment(enrollCourse.getDept());
-		if (response.equals("Department Saved"))
-			return "Employee Saved !!!";
-		else
-			return "Something went wrong!!!";
-		
-		return null;
-	}
 
 	@Override
-	public Enrollment updateEnrollment(int userId, int courseId) {
+	public String saveEnrollment(EnrollCourseRequestDTO enrollCourse) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void cancelEnrollment(int enrollmentId) {
+	public Enrollment updateEnrollment(EnrollCourseRequestDTO enrollCourse) {
 		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public String cancelEnrollment(int enrollmentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Enrollment> getAllEnrollments() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -48,25 +45,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public List<Course> getEnrollmentsByCourse(int courseId) {
+	public List<Enrollment> getEnrollmentsByCourse(int courseId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean checkEnrollmentStatus(int userId, int courseId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Enrollment getCourse(int enrollId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Enrollment> getAllCourses() {
+	public Enrollment getEnrollment(int enrollmentId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -23,8 +23,8 @@ public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int enrollmentId;
-	private User user;
-	private Course course;
+	private int userId;
+	private int courseId;
 	private LocalDateTime enrollmentDate = LocalDateTime.now();
 
 }
