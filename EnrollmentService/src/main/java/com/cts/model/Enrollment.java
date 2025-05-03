@@ -2,9 +2,6 @@ package com.cts.model;
 
 import java.time.LocalDateTime;
 
-import com.cts.dto.Course;
-import com.cts.dto.User;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

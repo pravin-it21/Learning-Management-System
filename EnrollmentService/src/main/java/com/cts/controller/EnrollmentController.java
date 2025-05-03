@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.dto.EnrollCourseRequestDTO;
 import com.cts.model.Enrollment;
 import com.cts.service.EnrollmentService;
 
@@ -23,13 +22,13 @@ public class EnrollmentController {
 	EnrollmentService service;
 
 	@PostMapping("/save")
-	public String saveEnrollment(@RequestBody EnrollCourseRequestDTO enrollCourse) {
-		return service.saveEnrollment(enrollCourse);
+	public String saveEnrollment(@RequestBody Enrollment enrollment) {
+		return service.saveEnrollment(enrollment);
 	}
 
 	@PutMapping("/update")
-	public Enrollment updateEnrollment(@RequestBody EnrollCourseRequestDTO enrollCourse) {
-		return service.updateEnrollment(enrollCourse);
+	public Enrollment updateEnrollment(@RequestBody Enrollment enrollment) {
+		return service.updateEnrollment(enrollment);
 	}
 
 	@GetMapping("/fetchById/{eid}")

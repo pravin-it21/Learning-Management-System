@@ -2,13 +2,12 @@ package com.cts.service;
 
 import java.util.List;
 
-import com.cts.dto.EnrollCourseRequestDTO;
 import com.cts.model.Enrollment;
 
 public interface EnrollmentService {
-	public abstract String saveEnrollment(EnrollCourseRequestDTO enrollCourse);
+	public abstract String saveEnrollment(Enrollment enrollment);
 
-	public abstract Enrollment updateEnrollment(EnrollCourseRequestDTO enrollCourse);
+	public abstract Enrollment updateEnrollment(Enrollment enrollment);
 
 	public abstract String cancelEnrollment(int enrollmentId);
 

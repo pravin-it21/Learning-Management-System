@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cts.dto.EnrollCourseRequestDTO;
 import com.cts.model.Enrollment;
 import com.cts.repository.EnrollmentRepository;
 
@@ -15,45 +14,41 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	EnrollmentRepository repository;
 
 	@Override
-	public String saveEnrollment(EnrollCourseRequestDTO enrollCourse) {
-		// TODO Auto-generated method stub
-		return null;
+	public String saveEnrollment(Enrollment enrollment) {
+		repository.save(enrollment);
+		return "Enrollment Successfully Saved";
 	}
 
 	@Override
-	public Enrollment updateEnrollment(EnrollCourseRequestDTO enrollCourse) {
-		// TODO Auto-generated method stub
-		return null;
+	public Enrollment updateEnrollment(Enrollment enrollment) {
+		return repository.save(enrollment);
 	}
 
 	@Override
 	public String cancelEnrollment(int enrollmentId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		repository.delete(repository.findById(enrollmentId).get());
+		return "Enrollment Deleted";
 	}
 
 	@Override
 	public List<Enrollment> getAllEnrollments() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 	@Override
 	public List<Enrollment> getEnrollmentsByUser(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByUserId(userId);
 	}
 
 	@Override
 	public List<Enrollment> getEnrollmentsByCourse(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByCourseId(courseId);
 	}
 
 	@Override
 	public Enrollment getEnrollment(int enrollmentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(enrollmentId).get();
 	}
 
 }
