@@ -1,0 +1,29 @@
+# Ignore logs for all services
+CourseService/logs/
+UserService/logs/
+EnrollmentService/logs/
+QuizService/logs/
+ProgressTrackingService/logs/
+
+# Ignore build artifacts for Java projects
+target/
+bin/
+
+# Ignore compiled class files
+*.class
+
+# Ignore IDE-specific files (Spring Tool Suite, Eclipse, IntelliJ)
+*.idea/
+*.vscode/
+*.settings/
+*.project
+*.classpath
+
+# Ignore system-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore environment-specific files
+.env
+*.properties
+*.yml

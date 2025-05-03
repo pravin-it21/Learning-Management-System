@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	public String createUser(User user) {
 		user.setUserPassword(encryptPassword(user.getUserPassword()));
 		repository.save(user);
-		return "User Saved";
+		return "User Saved ";
 	}
 
 	@Override
