@@ -1,9 +1,7 @@
-# Ignore logs for all services
-CourseService/logs/
-UserService/logs/
-EnrollmentService/logs/
-QuizService/logs/
-ProgressTrackingService/logs/
+# Ignore logs
+logs/
+*.log
+
 
 # Ignore build artifacts for Java projects
 target/
