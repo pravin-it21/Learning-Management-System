@@ -23,8 +23,7 @@ public class Course {
 	private String courseDescription;
 	private String courseCategory;
 	private int instructorId;
-	@OneToMany
-	private List<Course> prerequistes;
+	private String prerequistes;
 	private String courseLanguage;
 	private int courseDuration;
 
