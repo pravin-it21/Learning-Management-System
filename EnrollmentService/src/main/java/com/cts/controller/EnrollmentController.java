@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.dto.UserCourseEnrollResponseDTO;
 import com.cts.model.Enrollment;
 import com.cts.service.EnrollmentService;
 
@@ -32,7 +33,7 @@ public class EnrollmentController {
 	}
 
 	@GetMapping("/fetchById/{eid}")
-	public Enrollment getEnrollment(@PathVariable("eid") int enrollmentId) {
+	public UserCourseEnrollResponseDTO getEnrollment(@PathVariable("eid") int enrollmentId) {
 		return service.getEnrollment(enrollmentId);
 	}
 

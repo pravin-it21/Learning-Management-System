@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.dto.Course;
+import com.cts.dto.User;
+import com.cts.dto.UserCourseEnrollResponseDTO;
 import com.cts.feignclient.CourseClient;
 import com.cts.feignclient.UserClient;
 import com.cts.model.Enrollment;
@@ -63,8 +66,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public Enrollment getEnrollment(int enrollmentId) {
-		return repository.findById(enrollmentId).get();
+	public UserCourseEnrollResponseDTO getEnrollment(int enrollmentId) {
+		Enrollment enrollment = repository.findById(enrollmentId).get();
+		int userId = enrollment.getUserId();
+		int courseId = enrollment.getCourseId();
+		User user = userClient.getById(userId);
+		Course course = courseClient.getCourse(courseId);
+		UserCourseEnrollResponseDTO responseDTO = new UserCourseEnrollResponseDTO(user, course, enrollment);
+		return responseDTO;
 	}
 
 }
