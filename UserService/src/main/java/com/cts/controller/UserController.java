@@ -41,6 +41,12 @@ public class UserController {
 		return service.getUserById(userId);
 	}
 	
+	@GetMapping("/checkUserExist/{uid}")
+	public Boolean checkUserExist(@PathVariable("uid") int userId) {
+		return service.checkUserExist(userId);
+	}
+	
+	
 	@GetMapping("/fetchByEmail/{uemail}")
 	public User getByEmail(@PathVariable("uemail") String userEmail) {
 		return service.getUserByEmail(userEmail);

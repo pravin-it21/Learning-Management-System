@@ -42,6 +42,11 @@ public class CourseController {
 		return service.getAllCourses();
 	}
 	
+	@GetMapping("/checkCourseExist/{cid}")
+	public Boolean checkCourseExist(@PathVariable("cid") int courseId) {
+		return service.checkCourseExist(courseId);
+	}
+	
 	@DeleteMapping("/delete/{cid}")
 	public String deleteCourse(@PathVariable("cid") int courseId) {
 		return service.deleteCourse(courseId);

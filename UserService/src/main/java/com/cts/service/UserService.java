@@ -18,4 +18,6 @@ public interface UserService {
 
 	public abstract User getUserByEmail(String email);
 
+	public abstract Boolean checkUserExist(int userId);
+
 }

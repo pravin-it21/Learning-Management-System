@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.feignclient.CourseClient;
+import com.cts.feignclient.UserClient;
 import com.cts.model.Enrollment;
 import com.cts.repository.EnrollmentRepository;
 
@@ -12,9 +14,23 @@ import com.cts.repository.EnrollmentRepository;
 public class EnrollmentServiceImpl implements EnrollmentService {
 	@Autowired
 	EnrollmentRepository repository;
+	
+	@Autowired
+	UserClient userClient;
+	
+	@Autowired
+	CourseClient courseClient;
 
 	@Override
-	public String saveEnrollment(Enrollment enrollment) {
+	public String saveEnrollment(Enrollment enrollment) {		
+	        if (!userClient.checkUserExist(enrollment.getUserId())) {
+	            return "Error: User ID " + enrollment.getUserId() + " does not exist!";
+	        }
+
+	        if (!courseClient.checkCourseExist(enrollment.getCourseId())) {
+	            return "Error: Course ID " + enrollment.getCourseId() + " does not exist!";
+	        }
+
 		repository.save(enrollment);
 		return "Enrollment Successfully Saved";
 	}

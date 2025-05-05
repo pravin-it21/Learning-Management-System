@@ -1,4 +1,4 @@
-package com.cts.service;
+ package com.cts.service;
 
 import java.util.List;
 
@@ -14,4 +14,8 @@ public interface CourseService {
 	public abstract Course getCourse(int courseId);
 
 	public abstract List<Course> getAllCourses();
+	
+	public abstract Boolean checkCourseExist(int courseId);
+
+	
 }

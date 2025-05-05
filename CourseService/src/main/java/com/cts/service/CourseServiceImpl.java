@@ -38,8 +38,12 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> getAllCourses() {
-		// TODO Auto-generated method stub
 		return repository.findAll();
+	}
+
+	@Override
+	public Boolean checkCourseExist(int courseId) {
+		return repository.existsById(courseId);
 	}
 
 }

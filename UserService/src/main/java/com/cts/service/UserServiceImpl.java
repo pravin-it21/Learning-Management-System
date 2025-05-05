@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService {
 		return repository.findAll();
 	}
 
+	@Override
+	public Boolean checkUserExist(int userId) {
+		return repository.existsById(userId);
+	}
+
 }
