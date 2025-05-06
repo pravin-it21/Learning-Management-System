@@ -26,13 +26,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 	@Override
 	public String saveEnrollment(Enrollment enrollment) {		
-	        if (!userClient.checkUserExist(enrollment.getUserId())) {
-	            return "Error: User ID " + enrollment.getUserId() + " does not exist!";
-	        }
-
-	        if (!courseClient.checkCourseExist(enrollment.getCourseId())) {
-	            return "Error: Course ID " + enrollment.getCourseId() + " does not exist!";
-	        }
+	      Boolean responseUser =  userClient.checkUserExist(enrollment.getUserId());
+	      Boolean responseCourse = courseClient.checkCourseExist(enrollment.getCourseId());
+	           
 
 		repository.save(enrollment);
 		return "Enrollment Successfully Saved";
