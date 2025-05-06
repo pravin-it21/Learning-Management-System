@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.exception.CourseNotFound;
 import com.cts.model.Course;
 import com.cts.service.CourseService;
 
@@ -32,7 +33,7 @@ public class CourseController {
 	}
 
 	@GetMapping("/fetchById/{cid}")
-	public Course getCourse(@PathVariable("cid") int courseId) {
+	public Course getCourse(@PathVariable("cid") int courseId) throws CourseNotFound {
 		return service.getCourse(courseId);
 	}
 
@@ -43,7 +44,7 @@ public class CourseController {
 	}
 	
 	@GetMapping("/checkCourseExist/{cid}")
-	public Boolean checkCourseExist(@PathVariable("cid") int courseId) {
+	public Boolean checkCourseExist(@PathVariable("cid") int courseId) throws CourseNotFound {
 		return service.checkCourseExist(courseId);
 	}
 	
