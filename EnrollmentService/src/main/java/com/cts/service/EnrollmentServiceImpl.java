@@ -1,5 +1,6 @@
 package com.cts.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public List<Enrollment> getEnrollmentsByCourse(int courseId) {
-		return repository.findByCourseId(courseId);
+	public List<User> getUsersByCourseId(int courseId) {
+		List<Enrollment> list = repository.findByCourseId(courseId);
+		List<User> users = new ArrayList<>();
+		for(int i = 0;i<list.size();i++) {
+			Enrollment enroll = list.get(i);
+			users.add(userClient.getById(enroll.getUserId()));
+		}
+		return users;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.dto.User;
 import com.cts.dto.UserCourseEnrollResponseDTO;
 import com.cts.model.Enrollment;
 import com.cts.service.EnrollmentService;
@@ -42,9 +43,9 @@ public class EnrollmentController {
 		return service.getEnrollmentsByUser(userId);
 	}
 
-	@GetMapping("/fetchByCourse/{cid}")
-	public List<Enrollment> getEnrollmentsByCourse(@PathVariable("cid") int courseId) {
-		return service.getEnrollmentsByCourse(courseId);
+	@GetMapping("/fetchUsersByCourseId/{cid}")
+	public List<User> getUsersByCourseId(@PathVariable("cid") int courseId) {
+		return service.getUsersByCourseId(courseId);
 	}
 
 	@GetMapping("/fetchAll")
