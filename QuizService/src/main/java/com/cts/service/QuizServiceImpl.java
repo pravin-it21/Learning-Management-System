@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.feignclient.CourseClient;
 import com.cts.model.Quiz;
 import com.cts.model.QuizSubmission;
 import com.cts.repository.QuizRepository;
@@ -17,9 +18,15 @@ public class QuizServiceImpl implements QuizService {
 	QuizRepository quizRepository;
 	@Autowired
 	QuizSubmissionRepository submissionRepository;
+	
+	@Autowired
+	CourseClient courseClient;
 
 	@Override
 	public String createQuiz(Quiz quiz) {
+		if (!courseClient.checkCourseExist(quiz.getCourseId())) {
+            return "Error: Course ID " + quiz.getCourseId() + " does not exist!";
+        }
 		quizRepository.save(quiz);
 		return "Quiz Created";
 	}
