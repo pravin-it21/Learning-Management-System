@@ -61,7 +61,7 @@ public class CourseServiceImpl implements CourseService {
 			return response;
 		}
 		else {
-			throw new CourseNotFound("Course Id is Invalid...");
+			throw new CourseNotFound("Course Id is Invalid....");
 		}
 	}
 
