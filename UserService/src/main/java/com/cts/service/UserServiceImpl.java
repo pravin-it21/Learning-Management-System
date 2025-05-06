@@ -1,12 +1,13 @@
 package com.cts.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.stereotype.Service;
 
+import com.cts.exception.UserNotFound;
 import com.cts.model.User;
 import com.cts.repository.UserRepository;
 
@@ -34,9 +35,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(int userId) {
+	public User getUserById(int userId) throws UserNotFound {
+		
+		Optional<User> optional = repository.findById(userId);
+		if (optional.isPresent())
+			return optional.get();
+		else
+			throw new UserNotFound("User Id is Invalid...");
 
-		return repository.findById(userId).get();
 	}
 
 	@Override
@@ -56,8 +62,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean checkUserExist(int userId) {
-		return repository.existsById(userId);
+	public Boolean checkUserExist(int userId) throws UserNotFound {
+		boolean response = repository.existsById(userId);
+		if (response)
+			return response;
+		else
+			throw new UserNotFound("User Id is Invalid...");
 	}
 
 }

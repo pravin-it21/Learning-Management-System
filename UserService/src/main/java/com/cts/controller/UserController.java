@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.exception.UserNotFound;
 import com.cts.model.User;
 import com.cts.service.UserService;
 
@@ -37,12 +38,12 @@ public class UserController {
 	}
 
 	@GetMapping("/fetchById/{uid}")
-	public User getById(@PathVariable("uid") int userId) {
+	public User getById(@PathVariable("uid") int userId) throws UserNotFound {
 		return service.getUserById(userId);
 	}
 	
 	@GetMapping("/checkUserExist/{uid}")
-	public Boolean checkUserExist(@PathVariable("uid") int userId) {
+	public Boolean checkUserExist(@PathVariable("uid") int userId) throws UserNotFound {
 		return service.checkUserExist(userId);
 	}
 	
