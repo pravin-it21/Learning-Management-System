@@ -24,9 +24,7 @@ public class QuizServiceImpl implements QuizService {
 
 	@Override
 	public String createQuiz(Quiz quiz) {
-		if (!courseClient.checkCourseExist(quiz.getCourseId())) {
-            return "Error: Course ID " + quiz.getCourseId() + " does not exist!";
-        }
+		courseClient.checkCourseExist(quiz.getCourseId());
 		quizRepository.save(quiz);
 		return "Quiz Created";
 	}
