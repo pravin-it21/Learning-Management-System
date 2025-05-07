@@ -1,5 +1,6 @@
 package com.cts.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class Course {
 	private String courseDescription;
 	private String courseCategory;
 	private int instructorId;
-	private String prerequistes;
-	private String courseLanguage;
+	private String prerequisites;
 	private int courseDuration;
+
 }
