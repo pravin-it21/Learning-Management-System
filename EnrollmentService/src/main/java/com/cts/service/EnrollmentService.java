@@ -2,6 +2,7 @@ package com.cts.service;
 
 import java.util.List;
 
+import com.cts.dto.Course;
 import com.cts.dto.User;
 import com.cts.dto.UserCourseEnrollResponseDTO;
 import com.cts.model.Enrollment;
@@ -20,4 +21,6 @@ public interface EnrollmentService {
 	public abstract List<User> getUsersByCourseId(int courseId);
 
 	public abstract UserCourseEnrollResponseDTO getEnrollment(int enrollmentId);
+
+	public abstract List<Course> getCoursesByUserId(int userId);
 }

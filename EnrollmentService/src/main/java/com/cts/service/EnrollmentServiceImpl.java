@@ -18,18 +18,17 @@ import com.cts.repository.EnrollmentRepository;
 public class EnrollmentServiceImpl implements EnrollmentService {
 	@Autowired
 	EnrollmentRepository repository;
-	
+
 	@Autowired
 	UserClient userClient;
-	
+
 	@Autowired
 	CourseClient courseClient;
 
 	@Override
-	public String saveEnrollment(Enrollment enrollment) {		
-	      Boolean responseUser =  userClient.checkUserExist(enrollment.getUserId());
-	      Boolean responseCourse = courseClient.checkCourseExist(enrollment.getCourseId());
-	           
+	public String saveEnrollment(Enrollment enrollment) {
+		Boolean responseUser = userClient.checkUserExist(enrollment.getUserId());
+		Boolean responseCourse = courseClient.checkCourseExist(enrollment.getCourseId());
 
 		repository.save(enrollment);
 		return "Enrollment Successfully Saved";
@@ -61,11 +60,23 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	public List<User> getUsersByCourseId(int courseId) {
 		List<Enrollment> list = repository.findByCourseId(courseId);
 		List<User> users = new ArrayList<>();
-		for(int i = 0;i<list.size();i++) {
+		for (int i = 0; i < list.size(); i++) {
 			Enrollment enroll = list.get(i);
 			users.add(userClient.getById(enroll.getUserId()));
 		}
 		return users;
+	}
+
+	@Override
+	public List<Course> getCoursesByUserId(int userId) {
+		List<Enrollment> list = repository.findByUserId(userId);
+		List<Course> courses = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			Enrollment enroll = list.get(i);
+			courses.add(courseClient.getCourse(enroll.getCourseId()));
+		}
+
+		return courses;
 	}
 
 	@Override
