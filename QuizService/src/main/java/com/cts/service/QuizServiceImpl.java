@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.feignclient.CourseClient;
+import com.cts.feignclient.UserClient;
 import com.cts.model.Quiz;
 import com.cts.model.QuizSubmission;
 import com.cts.repository.QuizRepository;
@@ -18,6 +19,8 @@ public class QuizServiceImpl implements QuizService {
 	@Autowired
 	QuizSubmissionRepository submissionRepository;
 	
+	@Autowired
+	UserClient userClient;
 	@Autowired
 	CourseClient courseClient;
 
@@ -46,6 +49,8 @@ public class QuizServiceImpl implements QuizService {
 
 	@Override
 	public QuizSubmission evaluateQuiz(QuizSubmission quizSubmission) {
+		Boolean responseUser = userClient.checkUserExist(quizSubmission.getUserId());
+
 		Quiz quiz = quizRepository.findById(quizSubmission.getQuizId()).get();
 		int score = 0;
 		List<String> correctAnswers = quiz.getCorrectAnswers();
