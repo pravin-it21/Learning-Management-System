@@ -18,4 +18,10 @@ public interface QuizService {
 
 	public abstract List<Quiz> getAllQuizzes();
 
+	public abstract List<QuizSubmission> getAllQuizSubmissionByUserId(int userId);
+
+	public abstract List<Quiz> getQuizByCourseId(int courseId);
+
+	public abstract QuizSubmission getQuizSubmissionByUserId(int userId, int quizId);
+
 }

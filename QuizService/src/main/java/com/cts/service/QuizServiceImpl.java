@@ -1,6 +1,5 @@
 package com.cts.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,16 +49,15 @@ public class QuizServiceImpl implements QuizService {
 		Quiz quiz = quizRepository.findById(quizSubmission.getQuizId()).get();
 		int score = 0;
 		List<String> correctAnswers = quiz.getCorrectAnswers();
-		List<Boolean> correctness = new ArrayList<>();
 		for (int i = 0; i < quizSubmission.getResponses().size(); i++) {
 			boolean isCorrect = quizSubmission.getResponses().get(i).equalsIgnoreCase(correctAnswers.get(i));
-			correctness.add(isCorrect);
+	
 			if (isCorrect) {
 				score += 10;
 			}
 		}
 		quizSubmission.setScore(score);
-		quizSubmission.setPassed(score >= quiz.getTotalMarks() * 0.6); // Passing criteria: 60%
+		quizSubmission.setPassed(score >= quiz.getTotalMarks() * 0.5); // Passing criteria: 60%
 		submissionRepository.save(quizSubmission);
 		return quizSubmission;
 	}
@@ -67,6 +65,21 @@ public class QuizServiceImpl implements QuizService {
 	@Override
 	public List<Quiz> getAllQuizzes() {
 		return quizRepository.findAll();
+	}
+
+	@Override
+	public List<QuizSubmission> getAllQuizSubmissionByUserId(int userId) {
+		return submissionRepository.findByUserId(userId);
+	}
+
+	@Override
+	public List<Quiz> getQuizByCourseId(int courseId) {
+		return quizRepository.findByCourseId(courseId);
+	}
+
+	@Override
+	public QuizSubmission getQuizSubmissionByUserId(int userId, int quizId) {
+		return submissionRepository.findByUserIdAndQuizId(userId,quizId);
 	}
 
 }

@@ -42,6 +42,21 @@ public class QuizController {
 	public Quiz getById(@PathVariable("qid") int quizId) {
 		return quizService.getQuizById(quizId);
 	}
+	
+	@GetMapping("/getQuizByCourseId/{cid}")
+	public List<Quiz> getQuizByCourseId(@PathVariable("cid") int courseId) {
+		return quizService.getQuizByCourseId(courseId);
+	}
+	
+	@GetMapping("/getAllQuizSubmissionByUserId/{uid}")
+	public List<QuizSubmission> getAllQuizSubmissionByUserId(@PathVariable("uid") int userId) {
+		return quizService.getAllQuizSubmissionByUserId(userId);
+	}
+	
+	@GetMapping("/getSubmissionByUserId/{uid}/{qid}")
+	public QuizSubmission getQuizSubmissionByUserId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId) {
+		return quizService.getQuizSubmissionByUserId(userId,quizId);
+	}
 
 	@GetMapping("/fetchAll")
 	public List<Quiz> getAllQuizzes() {
