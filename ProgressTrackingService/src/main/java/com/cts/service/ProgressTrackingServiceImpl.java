@@ -34,7 +34,7 @@ public class ProgressTrackingServiceImpl implements ProgressTrackingService {
 			List<QuizDTO> quizzes =  quizClient.getQuizByCourseId(courseId);
 			List<QuizProgressDTO> quizProgressDTOs = new ArrayList<>();
 			for(QuizDTO quiz:quizzes) {
-				QuizSubmissionDTO submissionDTO = quizClient.getQuizSubmissionByUserId(userId,quiz.getQuizId());
+				QuizSubmissionDTO submissionDTO = quizClient.getQuizSubmissionByUserIdAndQuizId(userId,quiz.getQuizId());
 				int totalMarks = quiz.getTotalMarks();
 				int score = submissionDTO!=null?submissionDTO.getScore():0;
                 double progressPercentage = (double) score / totalMarks * 100;
