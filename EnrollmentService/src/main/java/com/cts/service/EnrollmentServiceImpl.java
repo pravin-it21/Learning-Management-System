@@ -83,10 +83,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public List<User> getUsersByCourseId(int courseId) throws EnrollmentNotFound {
+	public List<User> getUsersByCourseId(int courseId) {
 		Boolean responseCourse = courseClient.checkCourseExist(courseId);
 		List<Enrollment> list = repository.findByCourseId(courseId);
-		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
+//		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Enrollment enroll = list.get(i);
@@ -96,10 +96,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public List<Course> getCoursesByUserId(int userId) throws EnrollmentNotFound {
+	public List<Course> getCoursesByUserId(int userId)  {
 		Boolean responseUser = userClient.checkUserExist(userId);
 		List<Enrollment> list = repository.findByUserId(userId);
-		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this User Found");
+//		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this User Found");
 		List<Course> courses = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Enrollment enroll = list.get(i);
@@ -133,6 +133,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
 		repository.deleteByCourseId(courseId);
 		return "All the Enrollments For this Course Deleted";
+	}
+
+	@Override
+	public Boolean checkEnrollmentByUserIdAndCourseId(int userId, int courseId) throws EnrollmentNotFound {
+		Boolean response = repository.existsByUserIdAndCourseId(userId,courseId);
+		if(response) return response;
+		else throw new EnrollmentNotFound("User Not Enrolled For This Course");
 	}
 
 }

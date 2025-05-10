@@ -19,11 +19,13 @@ public interface EnrollmentService {
 
 	public abstract List<Enrollment> getEnrollmentsByUser(int userId) throws EnrollmentNotFound ;
 
-	public abstract List<User> getUsersByCourseId(int courseId) throws EnrollmentNotFound;
+	public abstract List<User> getUsersByCourseId(int courseId);
 
 	public abstract UserCourseEnrollResponseDTO getEnrollment(int enrollmentId) throws EnrollmentNotFound;
 
-	public abstract List<Course> getCoursesByUserId(int userId) throws EnrollmentNotFound;
+	public abstract List<Course> getCoursesByUserId(int userId);
 
 	public abstract String cancelEnrollmentsCourseId(int courseId)throws EnrollmentNotFound ;
+
+	public abstract Boolean checkEnrollmentByUserIdAndCourseId(int userId, int courseId) throws EnrollmentNotFound;
 }

@@ -15,4 +15,6 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 	
 	public abstract Enrollment findByUserIdAndCourseId(int userId,int courseId);
 
+	public abstract Boolean existsByUserIdAndCourseId(int userId, int courseId);
+
 }

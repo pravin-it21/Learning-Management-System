@@ -46,12 +46,12 @@ public class EnrollmentController {
 	}
 
 	@GetMapping("/fetchUsersByCourseId/{cid}")
-	public List<User> getUsersByCourseId(@PathVariable("cid") int courseId) throws EnrollmentNotFound {
+	public List<User> getUsersByCourseId(@PathVariable("cid") int courseId)  {
 		return service.getUsersByCourseId(courseId);
 	}
 	
 	@GetMapping("/fetchCoursesByUserId/{uid}")
-	public List<Course> getCoursesByUserId(@PathVariable("uid") int userId) throws EnrollmentNotFound {
+	public List<Course> getCoursesByUserId(@PathVariable("uid") int userId) {
 		return service.getCoursesByUserId(userId);
 	}
 
@@ -68,6 +68,11 @@ public class EnrollmentController {
 	@DeleteMapping("/cancelEnrollmentsByCourseId/{cid}")
 	public String cancelEnrollmentsByCourseId(@PathVariable("cid") int courseId) throws EnrollmentNotFound {
 		return service.cancelEnrollmentsCourseId(courseId);
+	}
+	
+	@GetMapping("checkUserEnrollCourse/{uid}/{cid}")
+	public Boolean checkEnrollmentByUserIdAndCourseId(@PathVariable("uid") int userId,@PathVariable("cid") int courseId) throws EnrollmentNotFound {
+		return service.checkEnrollmentByUserIdAndCourseId(userId,courseId);
 	}
 
 }
