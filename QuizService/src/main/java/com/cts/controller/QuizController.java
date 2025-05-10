@@ -48,6 +48,11 @@ public class QuizController {
 		return quizService.getQuizByCourseId(courseId);
 	}
 	
+	@DeleteMapping("/deleteQuizByCourseId/{cid}")
+	public String deleteQuizByCourseId(@PathVariable("cid") int courseId) {
+		return quizService.deleteQuizByCourseId(courseId);
+	}
+	
 	@GetMapping("/getAllQuizSubmissionByUserId/{uid}")
 	public List<QuizSubmission> getAllQuizSubmissionByUserId(@PathVariable("uid") int userId) {
 		return quizService.getAllQuizSubmissionByUserId(userId);

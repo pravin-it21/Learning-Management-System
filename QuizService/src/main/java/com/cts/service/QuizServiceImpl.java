@@ -12,6 +12,8 @@ import com.cts.model.QuizSubmission;
 import com.cts.repository.QuizRepository;
 import com.cts.repository.QuizSubmissionRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class QuizServiceImpl implements QuizService {
 	@Autowired
@@ -85,6 +87,13 @@ public class QuizServiceImpl implements QuizService {
 	@Override
 	public QuizSubmission getQuizSubmissionByUserId(int userId, int quizId) {
 		return submissionRepository.findByUserIdAndQuizId(userId,quizId);
+	}
+
+	@Override
+	@Transactional
+	public String deleteQuizByCourseId(int courseId) {
+		quizRepository.deleteByCourseId(courseId);
+		return "All the quizzes deleted";
 	}
 
 }

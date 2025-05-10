@@ -9,6 +9,7 @@ import com.cts.model.Quiz;
 public interface QuizRepository extends JpaRepository<Quiz, Integer>{
 
 	List<Quiz> findByCourseId(int courseId);
+	void deleteByCourseId(int courseId);
 
 
 }
