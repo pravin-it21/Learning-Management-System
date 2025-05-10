@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.exception.QuizNotFound;
+import com.cts.exception.QuizSubmissionNotFound;
 import com.cts.model.Quiz;
 import com.cts.model.QuizSubmission;
 import com.cts.service.QuizService;
@@ -29,47 +31,62 @@ public class QuizController {
 	}
 
 	@PutMapping("/update")
-	public Quiz updateQuiz(@RequestBody Quiz quiz) {
+	public Quiz updateQuiz(@RequestBody Quiz quiz) throws QuizNotFound {
 		return quizService.updateQuiz(quiz);
 	}
 
 	@DeleteMapping("/delete/{qid}")
-	public String deleteQuiz(@PathVariable("qid") int quizId) {
+	public String deleteQuiz(@PathVariable("qid") int quizId) throws QuizNotFound {
 		return quizService.deleteQuiz(quizId);
 	}
 
 	@GetMapping("/getById/{qid}")
-	public Quiz getById(@PathVariable("qid") int quizId) {
+	public Quiz getById(@PathVariable("qid") int quizId) throws QuizNotFound {
 		return quizService.getQuizById(quizId);
 	}
 	
 	@GetMapping("/getQuizByCourseId/{cid}")
-	public List<Quiz> getQuizByCourseId(@PathVariable("cid") int courseId) {
+	public List<Quiz> getQuizByCourseId(@PathVariable("cid") int courseId) throws QuizNotFound  {
 		return quizService.getQuizByCourseId(courseId);
 	}
 	
 	@DeleteMapping("/deleteQuizByCourseId/{cid}")
-	public String deleteQuizByCourseId(@PathVariable("cid") int courseId) {
+	public String deleteQuizByCourseId(@PathVariable("cid") int courseId) throws QuizNotFound  {
 		return quizService.deleteQuizByCourseId(courseId);
 	}
 	
+	@DeleteMapping("/deleteQuizSubmissionByQuizId/{qid}")
+	public String deleteQuizSubmissionByQuizId(@PathVariable("qid") int quizId) throws QuizNotFound, QuizSubmissionNotFound {
+		return quizService.deleteQuizSubmissionByQuizId(quizId);
+	}
+	
 	@GetMapping("/getAllQuizSubmissionByUserId/{uid}")
-	public List<QuizSubmission> getAllQuizSubmissionByUserId(@PathVariable("uid") int userId) {
+	public List<QuizSubmission> getAllQuizSubmissionByUserId(@PathVariable("uid") int userId) throws QuizSubmissionNotFound {
 		return quizService.getAllQuizSubmissionByUserId(userId);
 	}
 	
-	@GetMapping("/getSubmissionByUserId/{uid}/{qid}")
-	public QuizSubmission getQuizSubmissionByUserId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId) {
-		return quizService.getQuizSubmissionByUserId(userId,quizId);
+	@GetMapping("/getSubmissionByUserIdAndQuizId/{uid}/{qid}")
+	public QuizSubmission getQuizSubmissionByUserIdAndQuizId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId) throws QuizSubmissionNotFound, QuizNotFound {
+		return quizService.getQuizSubmissionByUserIdAndQuizId(userId,quizId);
 	}
 
-	@GetMapping("/fetchAll")
+	@GetMapping("/fetchAllQuiz")
 	public List<Quiz> getAllQuizzes() {
 		return quizService.getAllQuizzes();
 	}
+	
+	@GetMapping("/fetchAllQuizSubmission")
+	public List<QuizSubmission> getAllQuizSubmissions() {
+		return quizService.getAllQuizSubmissions();
+	}
 
 	@PostMapping("/submit")
-	public QuizSubmission evaluteQuiz(@RequestBody QuizSubmission quizSubmission) {
+	public QuizSubmission evaluteQuiz(@RequestBody QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
 		return quizService.evaluateQuiz(quizSubmission);
+	}
+	
+	@DeleteMapping("/deleteQuizSubmissionByUserId/{uid}")
+	public String deleteQuizSubmissionByUserId(@PathVariable("uid") int userId) throws QuizSubmissionNotFound  {
+		return quizService.deleteQuizSubmissionByUserId(userId);
 	}
 }

@@ -15,8 +15,8 @@ public interface QuizClient {
 	@GetMapping("/fetchQuizByUserId/{uid}")
 	public List<CourseDTO> getCoursesByUserId(@PathVariable("uid") int userId);
 
-	@GetMapping("/getSubmissionByUserId/{uid}/{qid}")
-	public abstract QuizSubmissionDTO getQuizSubmissionByUserId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId);
+	@GetMapping("/getSubmissionByUserIdAndQuizId/{uid}/{qid}")
+	public abstract QuizSubmissionDTO getQuizSubmissionByUserIdAndQuizId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId);
 
 	@GetMapping("/getQuizByCourseId/{cid}")
 	public abstract List<QuizDTO> getQuizByCourseId(@PathVariable("cid") int courseId);
