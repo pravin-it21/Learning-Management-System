@@ -23,4 +23,6 @@ public interface EnrollmentService {
 	public abstract UserCourseEnrollResponseDTO getEnrollment(int enrollmentId);
 
 	public abstract List<Course> getCoursesByUserId(int userId);
+
+	public abstract String cancelEnrollmentsCourseId(int courseId);
 }

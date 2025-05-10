@@ -14,6 +14,8 @@ import com.cts.feignclient.UserClient;
 import com.cts.model.Enrollment;
 import com.cts.repository.EnrollmentRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
 	@Autowired
@@ -88,6 +90,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		Course course = courseClient.getCourse(courseId);
 		UserCourseEnrollResponseDTO responseDTO = new UserCourseEnrollResponseDTO(user, course, enrollment);
 		return responseDTO;
+	}
+
+	@Override
+	@Transactional
+	public String cancelEnrollmentsCourseId(int courseId) {
+		repository.deleteByCourseId(courseId);
+		return "All the Enrollments For this Course Deleted";
 	}
 
 }

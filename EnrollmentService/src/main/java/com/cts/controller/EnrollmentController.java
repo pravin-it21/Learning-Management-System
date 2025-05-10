@@ -63,5 +63,10 @@ public class EnrollmentController {
 	public String cancelEnrollment(@PathVariable("eid") int enrollmentId) {
 		return service.cancelEnrollment(enrollmentId);
 	}
+	
+	@DeleteMapping("/cancelEnrollmentsByCourseId/{cid}")
+	public String cancelEnrollmentsByCourseId(@PathVariable("cid") int courseId) {
+		return service.cancelEnrollmentsCourseId(courseId);
+	}
 
 }
