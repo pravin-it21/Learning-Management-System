@@ -3,6 +3,7 @@ package com.cts.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Course {
     @Id
+    @Min(value = 1, message = "Course ID must be greater than 0")
     private int courseId; 
 
     @NotBlank(message = "Course Title can't be NULL or BLANK")
