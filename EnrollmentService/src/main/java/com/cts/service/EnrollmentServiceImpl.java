@@ -126,11 +126,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 	@Override
 	@Transactional
-	public String cancelEnrollmentsCourseId(int courseId) throws EnrollmentNotFound {
+	public String cancelEnrollmentsCourseId(int courseId) {
 
-		Boolean responseCourse = courseClient.checkCourseExist(courseId);
-		List<Enrollment> list = repository.findByCourseId(courseId);
-		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
+//		Boolean responseCourse = courseClient.checkCourseExist(courseId);
+//		List<Enrollment> list = repository.findByCourseId(courseId);
+//		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
 		repository.deleteByCourseId(courseId);
 		return "All the Enrollments For this Course Deleted";
 	}

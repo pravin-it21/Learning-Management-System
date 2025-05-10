@@ -25,7 +25,7 @@ public interface EnrollmentService {
 
 	public abstract List<Course> getCoursesByUserId(int userId);
 
-	public abstract String cancelEnrollmentsCourseId(int courseId)throws EnrollmentNotFound ;
+	public abstract String cancelEnrollmentsCourseId(int courseId);
 
 	public abstract Boolean checkEnrollmentByUserIdAndCourseId(int userId, int courseId) throws EnrollmentNotFound;
 }

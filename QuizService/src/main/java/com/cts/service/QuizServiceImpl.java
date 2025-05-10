@@ -143,11 +143,11 @@ public class QuizServiceImpl implements QuizService {
 
 	@Override
 	@Transactional
-	public String deleteQuizByCourseId(int courseId) throws QuizNotFound {
-		courseClient.checkCourseExist(courseId);
-		List<Quiz> list = quizRepository.findByCourseId(courseId);
-		if (list.isEmpty())
-			throw new QuizNotFound("Quiz For this Course Not Found");
+	public String deleteQuizByCourseId(int courseId)  {
+//		courseClient.checkCourseExist(courseId);
+//		List<Quiz> list = quizRepository.findByCourseId(courseId);
+//		if (list.isEmpty())
+//			throw new QuizNotFound("Quiz For this Course Not Found");
 		quizRepository.deleteByCourseId(courseId);
 		return "All the quizzes deleted";
 	}

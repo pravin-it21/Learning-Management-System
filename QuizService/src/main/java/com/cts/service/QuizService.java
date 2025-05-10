@@ -24,7 +24,7 @@ public interface QuizService {
 
 	public abstract List<Quiz> getQuizByCourseId(int courseId) ;
 	
-	public abstract String deleteQuizByCourseId(int courseId) throws QuizNotFound;
+	public abstract String deleteQuizByCourseId(int courseId) ;
 
 	public abstract QuizSubmission getQuizSubmissionByUserIdAndQuizId(int userId, int quizId);
 

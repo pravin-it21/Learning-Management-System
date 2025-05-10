@@ -51,7 +51,7 @@ public class QuizController {
 	}
 	
 	@DeleteMapping("/deleteQuizByCourseId/{cid}")
-	public String deleteQuizByCourseId(@PathVariable("cid") int courseId) throws QuizNotFound  {
+	public String deleteQuizByCourseId(@PathVariable("cid") int courseId) {
 		return quizService.deleteQuizByCourseId(courseId);
 	}
 	

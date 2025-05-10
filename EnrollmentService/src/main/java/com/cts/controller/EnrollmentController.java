@@ -66,7 +66,7 @@ public class EnrollmentController {
 	}
 	
 	@DeleteMapping("/cancelEnrollmentsByCourseId/{cid}")
-	public String cancelEnrollmentsByCourseId(@PathVariable("cid") int courseId) throws EnrollmentNotFound {
+	public String cancelEnrollmentsByCourseId(@PathVariable("cid") int courseId) {
 		return service.cancelEnrollmentsCourseId(courseId);
 	}
 	
