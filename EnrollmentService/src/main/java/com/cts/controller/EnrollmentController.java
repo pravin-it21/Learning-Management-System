@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cts.dto.Course;
 import com.cts.dto.User;
 import com.cts.dto.UserCourseEnrollResponseDTO;
+import com.cts.exception.EnrollmentNotFound;
 import com.cts.model.Enrollment;
 import com.cts.service.EnrollmentService;
 
@@ -30,27 +31,27 @@ public class EnrollmentController {
 	}
 
 	@PutMapping("/update")
-	public Enrollment updateEnrollment(@RequestBody Enrollment enrollment) {
+	public Enrollment updateEnrollment(@RequestBody Enrollment enrollment) throws EnrollmentNotFound {
 		return service.updateEnrollment(enrollment);
 	}
 
 	@GetMapping("/fetchById/{eid}")
-	public UserCourseEnrollResponseDTO getEnrollment(@PathVariable("eid") int enrollmentId) {
+	public UserCourseEnrollResponseDTO getEnrollment(@PathVariable("eid") int enrollmentId) throws EnrollmentNotFound {
 		return service.getEnrollment(enrollmentId);
 	}
 
 	@GetMapping("/fetchByUser/{uid}")
-	public List<Enrollment> getEnrollmentsByUser(@PathVariable("uid") int userId) {
+	public List<Enrollment> getEnrollmentsByUser(@PathVariable("uid") int userId) throws EnrollmentNotFound {
 		return service.getEnrollmentsByUser(userId);
 	}
 
 	@GetMapping("/fetchUsersByCourseId/{cid}")
-	public List<User> getUsersByCourseId(@PathVariable("cid") int courseId) {
+	public List<User> getUsersByCourseId(@PathVariable("cid") int courseId) throws EnrollmentNotFound {
 		return service.getUsersByCourseId(courseId);
 	}
 	
 	@GetMapping("/fetchCoursesByUserId/{uid}")
-	public List<Course> getCoursesByUserId(@PathVariable("uid") int userId) {
+	public List<Course> getCoursesByUserId(@PathVariable("uid") int userId) throws EnrollmentNotFound {
 		return service.getCoursesByUserId(userId);
 	}
 
@@ -60,12 +61,12 @@ public class EnrollmentController {
 	}
 
 	@DeleteMapping("/cancel/{eid}")
-	public String cancelEnrollment(@PathVariable("eid") int enrollmentId) {
+	public String cancelEnrollment(@PathVariable("eid") int enrollmentId) throws EnrollmentNotFound {
 		return service.cancelEnrollment(enrollmentId);
 	}
 	
 	@DeleteMapping("/cancelEnrollmentsByCourseId/{cid}")
-	public String cancelEnrollmentsByCourseId(@PathVariable("cid") int courseId) {
+	public String cancelEnrollmentsByCourseId(@PathVariable("cid") int courseId) throws EnrollmentNotFound {
 		return service.cancelEnrollmentsCourseId(courseId);
 	}
 

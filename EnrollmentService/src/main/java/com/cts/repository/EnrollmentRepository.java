@@ -12,5 +12,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 	public abstract List<Enrollment> findByCourseId(int courseId);
 
 	public abstract void deleteByCourseId(int courseId);
+	
+	public abstract Enrollment findByUserIdAndCourseId(int userId,int courseId);
 
 }

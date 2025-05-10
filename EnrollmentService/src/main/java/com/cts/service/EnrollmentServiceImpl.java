@@ -2,6 +2,7 @@ package com.cts.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.cts.dto.Course;
 import com.cts.dto.User;
 import com.cts.dto.UserCourseEnrollResponseDTO;
+import com.cts.exception.EnrollmentNotFound;
 import com.cts.feignclient.CourseClient;
 import com.cts.feignclient.UserClient;
 import com.cts.model.Enrollment;
@@ -29,23 +31,42 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 	@Override
 	public String saveEnrollment(Enrollment enrollment) {
-		Boolean responseUser = userClient.checkUserExist(enrollment.getUserId());
-		Boolean responseCourse = courseClient.checkCourseExist(enrollment.getCourseId());
-
+		int userId = enrollment.getUserId();
+		int courseId = enrollment.getCourseId();
+		Boolean responseUser = userClient.checkUserExist(userId);
+		Boolean responseCourse = courseClient.checkCourseExist(courseId);
+		Enrollment enrollmentExist = repository.findByUserIdAndCourseId(userId, courseId);
+		if (enrollmentExist != null) {
+			return "Enrollment Aldready Exist";
+		}
 		repository.save(enrollment);
 		return "Enrollment Successfully Saved";
 	}
 
 	@Override
-	public Enrollment updateEnrollment(Enrollment enrollment) {
-		return repository.save(enrollment);
+	public Enrollment updateEnrollment(Enrollment enrollment) throws EnrollmentNotFound {
+
+		int userId = enrollment.getUserId();
+		int courseId = enrollment.getCourseId();
+		Boolean responseUser = userClient.checkUserExist(userId);
+		Boolean responseCourse = courseClient.checkCourseExist(courseId);
+		Optional<Enrollment> enrollmentExist = repository.findById(enrollment.getEnrollmentId());
+		if (enrollmentExist.isPresent())
+			return repository.save(enrollment);
+
+		else
+			throw new EnrollmentNotFound("Enrollment Id is Invalid...");
+
 	}
 
 	@Override
-	public String cancelEnrollment(int enrollmentId) {
-
-		repository.delete(repository.findById(enrollmentId).get());
-		return "Enrollment Deleted";
+	public String cancelEnrollment(int enrollmentId) throws EnrollmentNotFound {
+		Optional<Enrollment> optional = repository.findById(enrollmentId);
+		if (optional.isPresent()) {
+			repository.delete(repository.findById(enrollmentId).get());
+			return "Enrollment Deleted";
+		}
+		throw new EnrollmentNotFound("Enrollment Id is Invalid");
 	}
 
 	@Override
@@ -54,13 +75,18 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public List<Enrollment> getEnrollmentsByUser(int userId) {
-		return repository.findByUserId(userId);
+	public List<Enrollment> getEnrollmentsByUser(int userId) throws EnrollmentNotFound {
+		Boolean responseUser = userClient.checkUserExist(userId);
+		List<Enrollment> list = repository.findByUserId(userId);
+		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this User Found");
+		return list;
 	}
 
 	@Override
-	public List<User> getUsersByCourseId(int courseId) {
+	public List<User> getUsersByCourseId(int courseId) throws EnrollmentNotFound {
+		Boolean responseCourse = courseClient.checkCourseExist(courseId);
 		List<Enrollment> list = repository.findByCourseId(courseId);
+		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Enrollment enroll = list.get(i);
@@ -70,8 +96,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public List<Course> getCoursesByUserId(int userId) {
+	public List<Course> getCoursesByUserId(int userId) throws EnrollmentNotFound {
+		Boolean responseUser = userClient.checkUserExist(userId);
 		List<Enrollment> list = repository.findByUserId(userId);
+		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this User Found");
 		List<Course> courses = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Enrollment enroll = list.get(i);
@@ -82,19 +110,27 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	}
 
 	@Override
-	public UserCourseEnrollResponseDTO getEnrollment(int enrollmentId) {
-		Enrollment enrollment = repository.findById(enrollmentId).get();
-		int userId = enrollment.getUserId();
-		int courseId = enrollment.getCourseId();
-		User user = userClient.getById(userId);
-		Course course = courseClient.getCourse(courseId);
-		UserCourseEnrollResponseDTO responseDTO = new UserCourseEnrollResponseDTO(user, course, enrollment);
-		return responseDTO;
+	public UserCourseEnrollResponseDTO getEnrollment(int enrollmentId) throws EnrollmentNotFound {
+		Optional<Enrollment> optional = repository.findById(enrollmentId);
+		if (optional.isPresent()) {
+			Enrollment enrollment = optional.get();
+			int userId = enrollment.getUserId();
+			int courseId = enrollment.getCourseId();
+			User user = userClient.getById(userId);
+			Course course = courseClient.getCourse(courseId);
+			UserCourseEnrollResponseDTO responseDTO = new UserCourseEnrollResponseDTO(user, course, enrollment);
+			return responseDTO;
+		}
+		throw new EnrollmentNotFound("Enrollment Id is Invalid");
 	}
 
 	@Override
 	@Transactional
-	public String cancelEnrollmentsCourseId(int courseId) {
+	public String cancelEnrollmentsCourseId(int courseId) throws EnrollmentNotFound {
+
+		Boolean responseCourse = courseClient.checkCourseExist(courseId);
+		List<Enrollment> list = repository.findByCourseId(courseId);
+		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
 		repository.deleteByCourseId(courseId);
 		return "All the Enrollments For this Course Deleted";
 	}
