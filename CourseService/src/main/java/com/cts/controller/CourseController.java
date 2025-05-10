@@ -28,7 +28,7 @@ public class CourseController {
 	}
 
 	@PutMapping("/update")
-	public Course updateCourse(@RequestBody Course course) {
+	public Course updateCourse(@RequestBody Course course) throws CourseNotFound {
 		return service.updateCourse(course);
 	}
 
@@ -49,7 +49,7 @@ public class CourseController {
 	}
 	
 	@DeleteMapping("/delete/{cid}")
-	public String deleteCourse(@PathVariable("cid") int courseId) {
+	public String deleteCourse(@PathVariable("cid") int courseId) throws CourseNotFound {
 		return service.deleteCourse(courseId);
 	}
 	

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.exception.CourseNotFound;
+import com.cts.feignclient.EnrollmentClient;
+import com.cts.feignclient.QuizClient;
 import com.cts.model.Course;
 import com.cts.repository.CourseRepository;
 
@@ -14,10 +16,18 @@ import com.cts.repository.CourseRepository;
 public class CourseServiceImpl implements CourseService {
 	@Autowired
 	CourseRepository repository;
+	@Autowired
+	EnrollmentClient enrollmentClient;
+
+	@Autowired
+	QuizClient quizClient;
 
 	@Override
 	public String createCourse(Course course) {
 		// log.info("In CourseServiceImpl createCourse method...");
+		Optional<Course> optional = repository.findById(course.getCourseId());
+		if (optional.isPresent())
+			return "Course Aldready Exist";
 		Course crs = repository.save(course);
 		if (crs != null)
 			return "Course Saved Successfully";
@@ -26,16 +36,29 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public Course updateCourse(Course course) {
+	public Course updateCourse(Course course) throws CourseNotFound {
 		// log.info("In CourseServiceImpl updateCourse method...");
-		return repository.save(course);
+		Optional<Course> optional = repository.findById(course.getCourseId());
+		if (optional.isPresent())
+			return repository.save(course);
+		else
+			throw new CourseNotFound("Course Id is Invalid...");
+
 	}
 
 	@Override
-	public String deleteCourse(int courseId) {
+	public String deleteCourse(int courseId) throws CourseNotFound {
 		// log.info("In CourseServiceImpl deleteCourse method...");
-		repository.deleteById(courseId);
-		return "Course Deleted";
+		Optional<Course> optional = repository.findById(courseId);
+		if (optional.isPresent()) {
+			repository.deleteById(courseId);
+			enrollmentClient.cancelEnrollmentsByCourseId(courseId);
+			quizClient.deleteQuizByCourseId(courseId);
+			return "Course Deleted";
+		} else {
+			throw new CourseNotFound("Course Id is Invalid...");
+		}
+
 	}
 
 	@Override
@@ -55,12 +78,11 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public Boolean checkCourseExist(int courseId) throws CourseNotFound {		
+	public Boolean checkCourseExist(int courseId) throws CourseNotFound {
 		Boolean response = repository.existsById(courseId);
-		if(response) {
+		if (response) {
 			return response;
-		}
-		else {
+		} else {
 			throw new CourseNotFound("Course Id is Invalid....");
 		}
 	}

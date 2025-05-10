@@ -8,9 +8,9 @@ import com.cts.model.Course;
 public interface CourseService {
 	public abstract String createCourse(Course course);
 
-	public abstract Course updateCourse(Course Course);
+	public abstract Course updateCourse(Course Course) throws CourseNotFound;
 
-	public abstract String deleteCourse(int courseId);
+	public abstract String deleteCourse(int courseId) throws CourseNotFound;
 
 	public abstract Course getCourse(int courseId) throws CourseNotFound;
 
