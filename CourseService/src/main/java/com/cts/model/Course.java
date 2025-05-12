@@ -9,11 +9,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "course_info")
 @Data
-@NoArgsConstructor
+
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class Course {
     @Id
