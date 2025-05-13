@@ -6,13 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cts.dto.User;
 
-@FeignClient(name = "SECURITY-SERVICE",path="/auth")
+@FeignClient(name = "SECURITY-SERVICE", path = "/auth")
 public interface UserClient {
 	@GetMapping("/checkUserExist/{uid}")
-	public Boolean checkUserExist(@PathVariable("uid") int courseId );
-	
+	public Boolean checkUserExist(@PathVariable("uid") int courseId);
+
 	@GetMapping("/fetchById/{uid}")
-	public User getById(@PathVariable("uid") int userId );
+	public User getById(@PathVariable("uid") int userId);
 }
-
-

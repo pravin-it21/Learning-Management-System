@@ -17,7 +17,7 @@ public interface EnrollmentService {
 
 	public abstract List<Enrollment> getAllEnrollments();
 
-	public abstract List<Enrollment> getEnrollmentsByUser(int userId) throws EnrollmentNotFound ;
+	public abstract List<Enrollment> getEnrollmentsByUser(int userId) throws EnrollmentNotFound;
 
 	public abstract List<User> getUsersByCourseId(int courseId);
 
