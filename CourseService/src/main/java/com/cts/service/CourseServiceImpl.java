@@ -3,6 +3,8 @@ package com.cts.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +24,12 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	QuizClient quizClient;
 
+	Logger log = LoggerFactory.getLogger(CourseServiceImpl.class);
+
+	// Used To Create Course
 	@Override
 	public String createCourse(Course course) {
-		// log.info("In CourseServiceImpl createCourse method...");
+		log.info("In CourseServiceImpl createCourse method...");
 		Optional<Course> optional = repository.findById(course.getCourseId());
 		if (optional.isPresent())
 			return "Course Aldready Exist";
@@ -35,9 +40,10 @@ public class CourseServiceImpl implements CourseService {
 			return "Course Not Saved";
 	}
 
+	// Used To Update Course
 	@Override
 	public Course updateCourse(Course course) throws CourseNotFound {
-		// log.info("In CourseServiceImpl updateCourse method...");
+		log.info("In CourseServiceImpl updateCourse method...");
 		Optional<Course> optional = repository.findById(course.getCourseId());
 		if (optional.isPresent())
 			return repository.save(course);
@@ -46,9 +52,10 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
+	// Used To Delete Course By CourseId
 	@Override
 	public String deleteCourse(int courseId) throws CourseNotFound {
-		// log.info("In CourseServiceImpl deleteCourse method...");
+		log.info("In CourseServiceImpl deleteCourse method...");
 		Optional<Course> optional = repository.findById(courseId);
 		if (optional.isPresent()) {
 			repository.deleteById(courseId);
@@ -61,8 +68,10 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
+	// Used To Get CourseBy CourseId
 	@Override
 	public Course getCourse(int courseId) throws CourseNotFound {
+		log.info("In CourseServiceImpl getCourse method...");
 
 		Optional<Course> optional = repository.findById(courseId);
 		if (optional.isPresent())
@@ -72,13 +81,19 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
+	// Used To GetAll Courses
 	@Override
 	public List<Course> getAllCourses() {
+		log.info("In CourseServiceImpl getAllCpourses method...");
+
 		return repository.findAll();
 	}
 
+	// Used To Check Whether the Course Exist in DataBase
 	@Override
 	public Boolean checkCourseExist(int courseId) throws CourseNotFound {
+		log.info("In CourseServiceImpl checkCourseExist method...");
+
 		Boolean response = repository.existsById(courseId);
 		if (response) {
 			return response;

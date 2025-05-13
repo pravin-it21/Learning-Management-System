@@ -21,9 +21,9 @@ import com.cts.service.CourseService;
 public class CourseController {
 	@Autowired
 	CourseService service;
-	
+
 	@PostMapping("/create")
-	public String createCourse(@RequestBody Course  course) {
+	public String createCourse(@RequestBody Course course) {
 		return service.createCourse(course);
 	}
 
@@ -42,17 +42,15 @@ public class CourseController {
 	public List<Course> getAllCourses() {
 		return service.getAllCourses();
 	}
-	
+
 	@GetMapping("/checkCourseExist/{cid}")
 	public Boolean checkCourseExist(@PathVariable("cid") int courseId) throws CourseNotFound {
 		return service.checkCourseExist(courseId);
 	}
-	
+
 	@DeleteMapping("/delete/{cid}")
 	public String deleteCourse(@PathVariable("cid") int courseId) throws CourseNotFound {
 		return service.deleteCourse(courseId);
 	}
-	
-	
 
 }
