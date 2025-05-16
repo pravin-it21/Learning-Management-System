@@ -2,6 +2,7 @@ package com.cts.service;
 
 import java.util.List;
 
+import com.cts.dto.QuizSubmissionDTO;
 import com.cts.exception.QuizNotFound;
 import com.cts.exception.QuizSubmissionNotFound;
 import com.cts.model.Quiz;
@@ -16,7 +17,7 @@ public interface QuizService {
 
 	public abstract Quiz getQuizById(int quizId) throws QuizNotFound;
 
-	public abstract QuizSubmission evaluateQuiz(QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound;
+	public abstract QuizSubmissionDTO evaluateQuiz(QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound;
 
 	public abstract List<Quiz> getAllQuizzes();
 

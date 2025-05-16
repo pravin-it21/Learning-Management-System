@@ -1,6 +1,6 @@
 package com.cts.model;
 
-import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -22,20 +22,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Quiz {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int quizId;
+    private int quizId;
+
     @Min(value = 1, message = "Course ID must be greater than 0")
-	private int courseId;
+    private int courseId;
+
     @NotBlank(message = "Title cannot be blank")
     @Size(max = 255, message = "Title must not exceed 255 characters")
-	private String title;
+    private String title;
+
     @Min(value = 1, message = "Total marks must be at least 1")
-	private int totalMarks;
-	@ElementCollection
+    private int totalMarks;
+
+    @ElementCollection
     @NotEmpty(message = "Questions list cannot be empty")
-	private List<String> questions;
-	@ElementCollection
-	@NotEmpty(message = "Answerlist cannot be empty")
-	private List<String> correctAnswers;
+    private Map<Integer, String> questions; // Stores questions mapped to their question number
+
+    @ElementCollection
+    @NotEmpty(message = "Answer list cannot be empty")
+    private Map<Integer, String> correctAnswers; // Stores correct answers mapped to their question number
 }

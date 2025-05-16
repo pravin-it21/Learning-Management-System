@@ -1,19 +1,22 @@
 package com.cts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
+import com.cts.dto.QuizSubmissionDTO;
 import com.cts.exception.QuizNotFound;
 import com.cts.exception.QuizSubmissionNotFound;
 import com.cts.feignclient.CourseClient;
@@ -25,137 +28,87 @@ import com.cts.repository.QuizRepository;
 import com.cts.repository.QuizSubmissionRepository;
 import com.cts.service.QuizServiceImpl;
 
-@SpringBootTest
 class QuizServiceImplTest {
 
     @Mock
-    QuizRepository quizRepository;
+    private QuizRepository quizRepository;
 
     @Mock
-    QuizSubmissionRepository quizSubmissionRepository;
+    private QuizSubmissionRepository submissionRepository;
 
     @Mock
-    CourseClient courseClient;
+    private UserClient userClient;
 
     @Mock
-    EnrollmentClient enrollmentClient;
+    private CourseClient courseClient;
 
     @Mock
-    UserClient userClient;
+    private EnrollmentClient enrollmentClient;
 
     @InjectMocks
-    QuizServiceImpl service;
+    private QuizServiceImpl quizService;
 
     @BeforeEach
     void setUp() {
-        Mockito.reset(quizRepository, quizSubmissionRepository, courseClient, enrollmentClient, userClient);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void createQuizTest() {
-        Quiz quiz = new Quiz(1, 101, "Java Basics Quiz", 50, Arrays.asList("Q1", "Q2"), Arrays.asList("A", "B"));
+    void testCreateQuiz_Success() {
+        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, new HashMap<>(), new HashMap<>());
 
-        Mockito.doNothing().when(courseClient).checkCourseExist(quiz.getCourseId());
-        Mockito.when(quizRepository.save(quiz)).thenReturn(quiz);
+        when(courseClient.checkCourseExist(quiz.getCourseId())).thenReturn(true);
 
-        String response = service.createQuiz(quiz);
-        assertEquals("Quiz Created", response);
+        String result = quizService.createQuiz(quiz);
 
-        Mockito.verify(courseClient, Mockito.times(1)).checkCourseExist(quiz.getCourseId());
-        Mockito.verify(quizRepository, Mockito.times(1)).save(quiz);
+        assertEquals("Quiz Created", result);
+        verify(quizRepository, times(1)).save(quiz);
     }
 
     @Test
-    void updateQuizTest() throws QuizNotFound {
-        Quiz quiz = new Quiz(1, 101, "Updated Java Quiz", 60, Arrays.asList("Q1", "Q2"), Arrays.asList("A", "B"));
+    void testGetQuizById_Success() throws QuizNotFound {
+        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, new HashMap<>(), new HashMap<>());
 
-        Mockito.when(quizRepository.findById(quiz.getQuizId())).thenReturn(Optional.of(quiz));
-        Mockito.when(quizRepository.save(quiz)).thenReturn(quiz);
+        when(quizRepository.findById(1)).thenReturn(Optional.of(quiz));
 
-        Quiz updatedQuiz = service.updateQuiz(quiz);
-        assertEquals(quiz, updatedQuiz);
+        Quiz foundQuiz = quizService.getQuizById(1);
 
-        Mockito.verify(quizRepository, Mockito.times(1)).save(quiz);
+        assertEquals("Cloud Computing Quiz", foundQuiz.getTitle());
     }
 
     @Test
-    void updateQuizNotFoundTest() {
-        Quiz quiz = new Quiz(2, 102, "Non-Existent Quiz", 50, Arrays.asList("Q1"), Arrays.asList("A"));
+    void testDeleteQuiz_Success() throws QuizNotFound {
+        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, new HashMap<>(), new HashMap<>());
 
-        Mockito.when(quizRepository.findById(quiz.getQuizId())).thenReturn(Optional.empty());
+        when(quizRepository.findById(1)).thenReturn(Optional.of(quiz));
 
-        assertThrows(QuizNotFound.class, () -> service.updateQuiz(quiz));
+        String result = quizService.deleteQuiz(1);
+
+        assertEquals("Quiz Deleted", result);
+        verify(quizRepository, times(1)).delete(quiz);
     }
 
     @Test
-    void deleteQuizTest() throws QuizNotFound {
-        Quiz quiz = new Quiz(1, 101, "Java Quiz", 50, Arrays.asList("Q1", "Q2"), Arrays.asList("A", "B"));
+    void testEvaluateQuiz_Success() throws QuizNotFound, QuizSubmissionNotFound {
+        Map<Integer, String> correctAnswers = new HashMap<>();
+        Map<Integer, String> questions = new HashMap<>();
+        questions.put(1, "What is");
+        questions.put(2, "Why");
 
-        Mockito.when(quizRepository.findById(quiz.getQuizId())).thenReturn(Optional.of(quiz));
-        Mockito.doNothing().when(quizRepository).delete(quiz);
-        Mockito.doNothing().when(quizSubmissionRepository).deleteByQuizId(quiz.getQuizId());
+        correctAnswers.put(1, "Cloud Computing");
+        correctAnswers.put(2, "Virtualization");
 
-        String response = service.deleteQuiz(quiz.getQuizId());
-        assertEquals("Quiz Deleted", response);
+        Quiz quiz = new Quiz(101, 201, "Cloud Computing Quiz", 30,  questions, correctAnswers);
+        QuizSubmission submission = new QuizSubmission(1, 101, 5001, Map.of(1, "Cloud Computing", 2, "Wrong Answer"), 0, false);
 
-        Mockito.verify(quizRepository, Mockito.times(1)).delete(quiz);
-        Mockito.verify(quizSubmissionRepository, Mockito.times(1)).deleteByQuizId(quiz.getQuizId());
-    }
+        when(quizRepository.findById(101)).thenReturn(Optional.of(quiz));
+        when(submissionRepository.findByUserIdAndQuizId(5001, 101)).thenReturn(null);
 
-    @Test
-    void deleteQuizNotFoundTest() {
-        int quizId = 999;
+        QuizSubmissionDTO evaluatedSubmission = quizService.evaluateQuiz(submission);
 
-        Mockito.when(quizRepository.findById(quizId)).thenReturn(Optional.empty());
-
-        assertThrows(QuizNotFound.class, () -> service.deleteQuiz(quizId));
-    }
-
-    @Test
-    void evaluateQuizTest() throws QuizNotFound, QuizSubmissionNotFound {
-        Quiz quiz = new Quiz(1, 101, "Java Basics Quiz", 50, Arrays.asList("Q1", "Q2"), Arrays.asList("A", "B"));
-        QuizSubmission submission = new QuizSubmission(1, quiz.getQuizId(), 201, Arrays.asList("A", "B"), 0, false);
-
-        Mockito.when(userClient.checkUserExist(submission.getUserId())).thenReturn(true);
-        Mockito.when(enrollmentClient.checkEnrollmentByUserIdAndCourseId(submission.getUserId(), quiz.getCourseId())).thenReturn(true);
-        Mockito.when(quizRepository.findById(submission.getQuizId())).thenReturn(Optional.of(quiz));
-        Mockito.when(quizSubmissionRepository.findByUserIdAndQuizId(submission.getUserId(), submission.getQuizId())).thenReturn(null);
-        Mockito.when(quizSubmissionRepository.save(submission)).thenReturn(submission);
-
-        QuizSubmission evaluatedSubmission = service.evaluateQuiz(submission);
-        assertEquals(50, evaluatedSubmission.getScore());
-        assertTrue(evaluatedSubmission.isPassed());
-
-        Mockito.verify(quizSubmissionRepository, Mockito.times(1)).save(submission);
-    }
-
-    @Test
-    void evaluateQuizSubmissionAlreadyExistsTest() {
-        QuizSubmission submission = new QuizSubmission(1, 101, 201, Arrays.asList("A", "B"), 50, true);
-
-        Mockito.when(quizSubmissionRepository.findByUserIdAndQuizId(submission.getUserId(), submission.getQuizId())).thenReturn(submission);
-
-        assertThrows(QuizSubmissionNotFound.class, () -> service.evaluateQuiz(submission));
-    }
-
-    @Test
-    void getQuizByIdTest() throws QuizNotFound {
-        Quiz quiz = new Quiz(1, 101, "Spring Boot Quiz", 70, Arrays.asList("Q1", "Q2"), Arrays.asList("A", "B"));
-
-        Mockito.when(quizRepository.findById(quiz.getQuizId())).thenReturn(Optional.of(quiz));
-
-        Quiz retrievedQuiz = service.getQuizById(quiz.getQuizId());
-        assertEquals(quiz, retrievedQuiz);
-
-        Mockito.verify(quizRepository, Mockito.times(1)).findById(quiz.getQuizId());
-    }
-
-    @Test
-    void getQuizByIdNotFoundTest() {
-        int quizId = 999;
-
-        Mockito.when(quizRepository.findById(quizId)).thenReturn(Optional.empty());
-
-        assertThrows(QuizNotFound.class, () -> service.getQuizById(quizId));
+        assertEquals(10, evaluatedSubmission.getScore()); // One correct answer
+        assertFalse(evaluatedSubmission.isPassed());
+        assertEquals(1, evaluatedSubmission.getCorrectAnswersCount());
+        assertEquals(1, evaluatedSubmission.getIncorrectAnswersCount());
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.dto.QuizSubmissionDTO;
 import com.cts.exception.QuizNotFound;
 import com.cts.exception.QuizSubmissionNotFound;
 import com.cts.model.Quiz;
@@ -81,7 +82,7 @@ public class QuizController {
 	}
 
 	@PostMapping("/submit")
-	public QuizSubmission evaluteQuiz(@RequestBody QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
+	public QuizSubmissionDTO evaluteQuiz(@RequestBody QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
 		return quizService.evaluateQuiz(quizSubmission);
 	}
 	
