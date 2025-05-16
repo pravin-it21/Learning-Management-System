@@ -88,8 +88,7 @@ class CourseServiceImplTest {
 
         Mockito.when(repository.findById(courseId)).thenReturn(Optional.of(course));
         Mockito.doNothing().when(repository).deleteById(courseId);
-//        Mockito.doNothing().when(enrollmentClient).cancelEnrollmentsByCourseId(courseId);
-//        Mockito.doNothing().when(quizClient).deleteQuizByCourseId(courseId);
+
 
         String response = service.deleteCourse(courseId);
         assertEquals("Course Deleted", response);
