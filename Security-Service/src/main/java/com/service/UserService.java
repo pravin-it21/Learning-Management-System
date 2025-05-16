@@ -44,9 +44,14 @@ public class UserService {
 		return repository.save(user);
 	}
 
-	public String removeUser(int userId) {
-		repository.deleteById(userId);
-		return "User Deleted";
+	public String removeUser(int userId) throws UserNotFound {
+		Optional<UserInfo> optional = repository.findById(userId);
+		if (optional.isPresent()) {
+			repository.deleteById(userId);
+			return "User Deleted";
+		}
+		else
+			throw new UserNotFound("User Id is Invalid...");
 	}
 
 	public UserInfo getUserById(int userId) throws UserNotFound {
