@@ -67,9 +67,9 @@ class ProgressTrackingServiceApplicationTests {
         List<QuizDTO> quizzesForCourse2 = Arrays.asList(
                 new QuizDTO(201, 2, "Spring Boot Quiz 1", 70));
 
-        QuizSubmissionDTO submission1 = new QuizSubmissionDTO(1, 101, userId, Arrays.asList("A", "B", "C"), 40, true);
-        QuizSubmissionDTO submission2 = new QuizSubmissionDTO(2, 102, userId, Arrays.asList("D", "E"), 50, true);
-        QuizSubmissionDTO submission3 = new QuizSubmissionDTO(3, 201, userId, Arrays.asList("F", "G"), 60, true);
+        QuizSubmissionDTO submission1 = new QuizSubmissionDTO(1, 101, userId,  null, 40, true);
+        QuizSubmissionDTO submission2 = new QuizSubmissionDTO(2, 102, userId,  null, 50, true);
+        QuizSubmissionDTO submission3 = new QuizSubmissionDTO(3, 201, userId,  null, 60, true);
 
         Mockito.when(enrollmentClient.getCoursesByUserId(userId)).thenReturn(courses);
         Mockito.when(quizClient.getQuizByCourseId(1)).thenReturn(quizzesForCourse1);

@@ -17,12 +17,12 @@ import com.cts.service.ProgressTrackingService;
 public class ProgressTrackingController {
 	@Autowired
 	ProgressTrackingService service;
-	
+
 	@GetMapping("/fetchByUserId/{uid}")
 	public List<CourseDTO> getCourseByUserId(@PathVariable("uid") int userId) {
 		return service.getCourseByUserId(userId);
 	}
-	
+
 	@GetMapping("/fetchProgressByUserId/{uid}")
 	public UserDTO getProgressByUserId(@PathVariable("uid") int userId) {
 		return service.getProgressByUserId(userId);

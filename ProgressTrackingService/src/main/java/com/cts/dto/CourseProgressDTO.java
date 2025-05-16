@@ -14,4 +14,5 @@ public class CourseProgressDTO {
 	private String courseTitle;
 	private String courseDescription;
 	private List<QuizProgressDTO> quizzes;
+    private double courseCompletionPercentage; 
 }

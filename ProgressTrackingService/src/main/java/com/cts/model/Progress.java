@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="progress_info")
+@Table(name = "progress_info")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
