@@ -62,7 +62,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 //  ("/quiz/**","/users/**","/progress/**","/enroll/**","/course/**")
   private boolean isAuthorized(String role, String path, String method) {
       if ("ADMIN".equalsIgnoreCase(role)) {
-          return path.startsWith("/progress") || path.startsWith("/course") || path.startsWith("/enroll") || path.startsWith("/quiz")  ;
+          return path.startsWith("/progress") || path.startsWith("/course") || path.startsWith("/enroll") && method.equalsIgnoreCase("GET")
+        		  || path.startsWith("/enroll") && method.equalsIgnoreCase("PUT") || path.startsWith("/enroll") && method.equalsIgnoreCase("DELETE") || path.startsWith("/quiz")  ;
       } else if ("STUDENT".equalsIgnoreCase(role)) {
           return   path.startsWith("/progress")
         		  || path.startsWith("/course") && method.equalsIgnoreCase("GET")

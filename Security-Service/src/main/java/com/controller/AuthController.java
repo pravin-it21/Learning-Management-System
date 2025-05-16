@@ -75,7 +75,7 @@ public class AuthController {
 	}
     
     @DeleteMapping("/remove/{uid}")
-	public String removeUser(@PathVariable("uid") int userId) {
+	public String removeUser(@PathVariable("uid") int userId) throws UserNotFound {
 		return service.removeUser(userId);
 	}
 
