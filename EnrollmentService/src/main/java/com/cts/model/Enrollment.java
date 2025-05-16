@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "enrollments_info")
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -143,7 +143,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 		Boolean responseUser = userClient.checkUserExist(userId);
 		List<Enrollment> list = repository.findByUserId(userId);
-//		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this User Found");
 		List<Course> courses = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Enrollment enroll = list.get(i);
@@ -180,10 +179,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 	@Transactional
 	public String cancelEnrollmentsCourseId(int courseId) {
 		log.info("In EnrollmentServiceImpl cancelEnrollmentsCourseId method...");
-
-//		Boolean responseCourse = courseClient.checkCourseExist(courseId);
-//		List<Enrollment> list = repository.findByCourseId(courseId);
-//		if(list.isEmpty()) throw new EnrollmentNotFound("No Enrollments For this Course Found");
 		repository.deleteByCourseId(courseId);
 		return "All the Enrollments For this Course Deleted";
 	}

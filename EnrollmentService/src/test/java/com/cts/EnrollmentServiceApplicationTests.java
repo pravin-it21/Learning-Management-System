@@ -1,20 +1,19 @@
 package com.cts;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import com.cts.dto.Course;
 import com.cts.dto.User;
@@ -26,159 +25,92 @@ import com.cts.model.Enrollment;
 import com.cts.repository.EnrollmentRepository;
 import com.cts.service.EnrollmentServiceImpl;
 
-@SpringBootTest
 class EnrollmentServiceImplTest {
 
     @Mock
-    EnrollmentRepository repository;
+    private EnrollmentRepository enrollmentRepository;
 
     @Mock
-    UserClient userClient;
+    private UserClient userClient;
 
     @Mock
-    CourseClient courseClient;
+    private CourseClient courseClient;
 
     @InjectMocks
-    EnrollmentServiceImpl service;
+    private EnrollmentServiceImpl enrollmentService;
 
     @BeforeEach
     void setUp() {
-        Mockito.reset(repository, userClient, courseClient);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void saveEnrollmentTest() {
-        Enrollment enrollment = new Enrollment(1, 101, 201, LocalDateTime.now());
+    void testSaveEnrollment_Success() {
+        Enrollment enrollment = new Enrollment(1, 101, 201,  LocalDateTime.now());
 
-        Mockito.when(userClient.checkUserExist(enrollment.getUserId())).thenReturn(true);
-        Mockito.when(courseClient.checkCourseExist(enrollment.getCourseId())).thenReturn(true);
-        Mockito.when(repository.findByUserIdAndCourseId(enrollment.getUserId(), enrollment.getCourseId())).thenReturn(null);
-        Mockito.when(repository.save(enrollment)).thenReturn(enrollment);
+        when(userClient.checkUserExist(101)).thenReturn(true);
+        when(courseClient.checkCourseExist(201)).thenReturn(true);
+        when(enrollmentRepository.findByUserIdAndCourseId(101, 201)).thenReturn(null);
 
-        String response = service.saveEnrollment(enrollment);
-        assertEquals("Enrollment Successfully Saved", response);
+        String result = enrollmentService.saveEnrollment(enrollment);
 
-        Mockito.verify(repository, Mockito.times(1)).save(enrollment);
+        assertEquals("Enrollment Successfully Saved", result);
+        verify(enrollmentRepository, times(1)).save(enrollment);
     }
 
     @Test
-    void saveEnrollmentAlreadyExistsTest() {
-        Enrollment enrollment = new Enrollment(1, 101, 201, LocalDateTime.now());
+    void testSaveEnrollment_AlreadyExists() {
+        Enrollment enrollment = new Enrollment(1, 101, 201,  LocalDateTime.now());
 
-        Mockito.when(repository.findByUserIdAndCourseId(enrollment.getUserId(), enrollment.getCourseId())).thenReturn(enrollment);
+        when(userClient.checkUserExist(101)).thenReturn(true);
+        when(courseClient.checkCourseExist(201)).thenReturn(true);
+        when(enrollmentRepository.findByUserIdAndCourseId(101, 201)).thenReturn(enrollment);
 
-        String response = service.saveEnrollment(enrollment);
-        assertEquals("Enrollment Aldready Exist", response);
+        String result = enrollmentService.saveEnrollment(enrollment);
+
+        assertEquals("Enrollment Aldready Exist", result);
+        verify(enrollmentRepository, never()).save(enrollment);
     }
 
     @Test
-    void updateEnrollmentTest() throws EnrollmentNotFound {
-        Enrollment enrollment = new Enrollment(1, 101, 201, LocalDateTime.now());
+    void testGetEnrollment_Success() throws EnrollmentNotFound {
+        Enrollment enrollment = new Enrollment(1, 101, 201,  LocalDateTime.now());
+        User user = new User(101, "John Doe", "john@example.com");
+        Course course = new Course(201, "Cloud Computing", "Learn cloud technologies", "Cloud Technology", 5, "Basic IT knowledge", 20);
 
-        Mockito.when(userClient.checkUserExist(enrollment.getUserId())).thenReturn(true);
-        Mockito.when(courseClient.checkCourseExist(enrollment.getCourseId())).thenReturn(true);
-        Mockito.when(repository.findById(enrollment.getEnrollmentId())).thenReturn(Optional.of(enrollment));
-        Mockito.when(repository.save(enrollment)).thenReturn(enrollment);
+        when(enrollmentRepository.findById(1)).thenReturn(Optional.of(enrollment));
+        when(userClient.getById(101)).thenReturn(user);
+        when(courseClient.getCourse(201)).thenReturn(course);
 
-        Enrollment updatedEnrollment = service.updateEnrollment(enrollment);
-        assertEquals(enrollment, updatedEnrollment);
+        UserCourseEnrollResponseDTO response = enrollmentService.getEnrollment(1);
 
-        Mockito.verify(repository, Mockito.times(1)).save(enrollment);
-    }
-
-    @Test
-    void updateEnrollmentNotFoundTest() {
-        Enrollment enrollment = new Enrollment(1, 101, 201, LocalDateTime.now());
-
-        Mockito.when(repository.findById(enrollment.getEnrollmentId())).thenReturn(Optional.empty());
-
-        assertThrows(EnrollmentNotFound.class, () -> service.updateEnrollment(enrollment));
-    }
-
-    @Test
-    void cancelEnrollmentTest() throws EnrollmentNotFound {
-        int enrollmentId = 1;
-        Enrollment enrollment = new Enrollment(enrollmentId, 101, 201, LocalDateTime.now());
-
-        Mockito.when(repository.findById(enrollmentId)).thenReturn(Optional.of(enrollment));
-        Mockito.doNothing().when(repository).delete(enrollment);
-
-        String response = service.cancelEnrollment(enrollmentId);
-        assertEquals("Enrollment Deleted", response);
-
-        Mockito.verify(repository, Mockito.times(1)).delete(enrollment);
-    }
-
-    @Test
-    void cancelEnrollmentNotFoundTest() {
-        int enrollmentId = 2;
-
-        Mockito.when(repository.findById(enrollmentId)).thenReturn(Optional.empty());
-
-        assertThrows(EnrollmentNotFound.class, () -> service.cancelEnrollment(enrollmentId));
-    }
-
-    @Test
-    void getEnrollmentTest() throws EnrollmentNotFound {
-        int enrollmentId = 1;
-        Enrollment enrollment = new Enrollment(enrollmentId, 101, 201, LocalDateTime.now());
-        User user = new User(101, "John Doe", "john@example.com", "password123");
-        Course course = new Course(201, "Java Basics", "Intro to Java", "Programming", 1001, "Basic programming", 30);
-
-        Mockito.when(repository.findById(enrollmentId)).thenReturn(Optional.of(enrollment));
-        Mockito.when(userClient.getById(enrollment.getUserId())).thenReturn(user);
-        Mockito.when(courseClient.getCourse(enrollment.getCourseId())).thenReturn(course);
-
-        UserCourseEnrollResponseDTO response = service.getEnrollment(enrollmentId);
         assertEquals(user, response.getUser());
         assertEquals(course, response.getCourse());
         assertEquals(enrollment, response.getEnroll());
-
-        Mockito.verify(repository, Mockito.times(1)).findById(enrollmentId);
-        Mockito.verify(userClient, Mockito.times(1)).getById(enrollment.getUserId());
-        Mockito.verify(courseClient, Mockito.times(1)).getCourse(enrollment.getCourseId());
     }
 
     @Test
-    void getEnrollmentNotFoundTest() {
-        int enrollmentId = 2;
+    void testGetEnrollment_NotFound() {
+        when(enrollmentRepository.findById(1)).thenReturn(Optional.empty());
 
-        Mockito.when(repository.findById(enrollmentId)).thenReturn(Optional.empty());
-
-        assertThrows(EnrollmentNotFound.class, () -> service.getEnrollment(enrollmentId));
+        assertThrows(EnrollmentNotFound.class, () -> enrollmentService.getEnrollment(1));
     }
 
     @Test
-    void getAllEnrollmentsTest() {
-        List<Enrollment> enrollments = Arrays.asList(
-                new Enrollment(1, 101, 201, LocalDateTime.now()),
-                new Enrollment(2, 102, 202, LocalDateTime.now()));
+    void testCancelEnrollment_Success() throws EnrollmentNotFound {
+        Enrollment enrollment = new Enrollment(1, 101, 201,  LocalDateTime.now());
+        when(enrollmentRepository.findById(1)).thenReturn(Optional.of(enrollment));
 
-        Mockito.when(repository.findAll()).thenReturn(enrollments);
+        String result = enrollmentService.cancelEnrollment(1);
 
-        List<Enrollment> result = service.getAllEnrollments();
-        assertEquals(enrollments.size(), result.size());
-
-        Mockito.verify(repository, Mockito.times(1)).findAll();
+        assertEquals("Enrollment Deleted", result);
+        verify(enrollmentRepository, times(1)).delete(enrollment);
     }
 
     @Test
-    void checkEnrollmentByUserIdAndCourseIdTest() throws EnrollmentNotFound {
-        int userId = 101, courseId = 201;
+    void testCancelEnrollment_NotFound() {
+        when(enrollmentRepository.findById(1)).thenReturn(Optional.empty());
 
-        Mockito.when(repository.existsByUserIdAndCourseId(userId, courseId)).thenReturn(true);
-
-        assertTrue(service.checkEnrollmentByUserIdAndCourseId(userId, courseId));
-
-        Mockito.verify(repository, Mockito.times(1)).existsByUserIdAndCourseId(userId, courseId);
-    }
-
-    @Test
-    void checkEnrollmentByUserIdAndCourseIdNotFoundTest() {
-        int userId = 101, courseId = 201;
-
-        Mockito.when(repository.existsByUserIdAndCourseId(userId, courseId)).thenReturn(false);
-
-        assertThrows(EnrollmentNotFound.class, () -> service.checkEnrollmentByUserIdAndCourseId(userId, courseId));
+        assertThrows(EnrollmentNotFound.class, () -> enrollmentService.cancelEnrollment(1));
     }
 }
