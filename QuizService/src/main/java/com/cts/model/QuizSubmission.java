@@ -31,10 +31,18 @@ public class QuizSubmission {
     private int userId;
 
     @ElementCollection
-    @NotEmpty(message = "Responses cannot be empty")
     private Map<Integer, String> responses; // Stores user-submitted answers mapped to question number
 
     @Min(value = 0, message = "Score cannot be negative")
     private int score;
     private boolean passed;
+    private int correctAnswersCount;
+    private int incorrectAnswersCount;
+    @ElementCollection
+    private Map<Integer, String> unansweredQuestions; 
+    @ElementCollection
+    private Map<Integer, String> incorrectQuestions;
 }
+
+
+;

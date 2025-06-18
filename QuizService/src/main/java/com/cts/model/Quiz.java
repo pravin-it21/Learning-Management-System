@@ -2,11 +2,13 @@ package com.cts.model;
 
 import java.util.Map;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -39,6 +41,10 @@ public class Quiz {
     @ElementCollection
     @NotEmpty(message = "Questions list cannot be empty")
     private Map<Integer, String> questions; // Stores questions mapped to their question number
+    
+    @Lob  // Allows storage of large data
+    @Column(columnDefinition = "TEXT")  // Ensures no truncation
+    private String optionsJson;  // Store options as a JSON string
 
     @ElementCollection
     @NotEmpty(message = "Answer list cannot be empty")

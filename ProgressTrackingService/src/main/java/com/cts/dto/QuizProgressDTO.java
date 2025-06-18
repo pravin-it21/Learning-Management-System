@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QuizProgressDTO {
 	private int quizId;
+	private String quiztitle;
 	private int totalMarks;
 	private int score;
 	private double progressPercentage;

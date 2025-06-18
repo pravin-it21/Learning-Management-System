@@ -102,4 +102,10 @@ public class CourseServiceImpl implements CourseService {
 		}
 	}
 
+	@Override
+	public List<Course> getCoursesByInstructorId(int instructorId) {
+		// TODO Auto-generated method stub
+		return repository.findByInstructorId(instructorId);
+	}
+
 }

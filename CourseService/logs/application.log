@@ -1,5 +1,2 @@
-2025-05-11T00:01:13.061+05:30  WARN 10804 --- [CourseService] [HikariPool-7 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=13m55s304ms128µs400ns).
-2025-05-11T00:04:07.737+05:30  INFO 10804 --- [CourseService] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2025-05-11T00:09:07.741+05:30  INFO 10804 --- [CourseService] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2025-05-11T00:14:07.758+05:30  INFO 10804 --- [CourseService] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2025-05-11T00:19:07.761+05:30  INFO 10804 --- [CourseService] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-06-18T09:01:48.347+05:30  WARN 27928 --- [CourseService] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14h39m2s786ms72µs600ns).
+2025-06-18T09:03:51.553+05:30  INFO 27928 --- [CourseService] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

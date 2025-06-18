@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.dto.AdminUserProgressDTO;
 import com.cts.dto.CourseDTO;
 import com.cts.dto.UserDTO;
 import com.cts.service.ProgressTrackingService;
@@ -27,4 +28,14 @@ public class ProgressTrackingController {
 	public UserDTO getProgressByUserId(@PathVariable("uid") int userId) {
 		return service.getProgressByUserId(userId);
 	}
+	
+//	@GetMapping("/fetchAllProgress")
+//	public List<UserDTO> getAllProgress() {
+//		return service.getAllProgress();
+//	}
+	@GetMapping("/fetchAllProgress")
+    public List<AdminUserProgressDTO> getAllProgressWithUserDetails() {
+		return service.getAllProgressWithUserDetails();
+	}
+
 }

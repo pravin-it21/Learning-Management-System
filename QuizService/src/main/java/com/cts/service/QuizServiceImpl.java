@@ -87,7 +87,7 @@ public class QuizServiceImpl implements QuizService {
 
 
 	@Override
-	public QuizSubmissionDTO evaluateQuiz(QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
+	public QuizSubmission evaluateQuiz(QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
 	    log.info("Evaluating quiz submission for User ID: {}", quizSubmission.getUserId());
 
 	    int userId = quizSubmission.getUserId();
@@ -140,13 +140,13 @@ public class QuizServiceImpl implements QuizService {
 
 	    quizSubmission.setScore(score);
 	    quizSubmission.setPassed(score >= quiz.getTotalMarks() * 0.5);
-	    submissionRepository.save(quizSubmission);
+//	    submissionRepository.save(quizSubmission);
 
 	    log.info("Quiz Evaluation Complete for User ID: {} - Score: {}, Correct: {}, Incorrect: {}, Unanswered: {}", 
 	             userId, score, correctAnswersCount, incorrectAnswersCount, unansweredQuestions.size());
 
 	    // Returning structured feedback
-	    return new QuizSubmissionDTO(
+	    QuizSubmission submission = new QuizSubmission(
 	        quizSubmission.getSubmissionId(),
 	        quizSubmission.getQuizId(),
 	        quizSubmission.getUserId(),
@@ -158,6 +158,8 @@ public class QuizServiceImpl implements QuizService {
 	        unansweredQuestions,
 	        incorrectQuestions
 	    );
+	    submissionRepository.save(submission);
+	    return submission;
 	}
 
 
@@ -227,7 +229,8 @@ public class QuizServiceImpl implements QuizService {
 			throw new QuizNotFound("Quiz Id is Invalid");
 
 	}
-
+	
+	
 	@Override
 	public List<QuizSubmission> getAllQuizSubmissions() {
 		log.info("In QuizServiceImpl getAllQuizSubmissions method...");
@@ -248,5 +251,14 @@ public class QuizServiceImpl implements QuizService {
 		} else
 			throw new QuizSubmissionNotFound("No Submission Found For This User");
 	}
+
+	@Override
+	public Boolean checkSubmission(int userId, int quizId) {
+		boolean exists = submissionRepository.findByUserIdAndQuizId(userId, quizId)!=null;
+		return exists;
+	}
+	
+	
+
 
 }

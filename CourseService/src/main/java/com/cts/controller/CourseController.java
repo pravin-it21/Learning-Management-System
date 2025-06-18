@@ -36,7 +36,11 @@ public class CourseController {
 	public Course getCourse(@PathVariable("cid") int courseId) throws CourseNotFound {
 		return service.getCourse(courseId);
 	}
-
+	
+	@GetMapping("/fetchCoursesByInstructorId/{iid}")
+	public List<Course> getCoursesByInstructorId(@PathVariable("iid") int instructorId){
+		return service.getCoursesByInstructorId(instructorId);
+	}
 	@GetMapping("/fetchAll")
 
 	public List<Course> getAllCourses() {

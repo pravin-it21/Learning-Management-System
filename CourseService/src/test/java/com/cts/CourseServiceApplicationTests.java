@@ -1,9 +1,6 @@
 package com.cts;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +35,8 @@ class CourseServiceImplTest {
 
     @Test
     void createCourseTest() {
-        Course course = new Course(1, "Java Basics", "Introduction to Java", "Programming", 101, "Basic coding skills", 30);
+        Course course = new Course(1, "Java Basics", "Introduction to Java", "Programming", 101, "Basic coding skills", 30, 
+                                   "Java fundamentals content", Arrays.asList("https://youtube.com/java-basics"));
 
         Mockito.when(repository.findById(course.getCourseId())).thenReturn(Optional.empty());
         Mockito.when(repository.save(course)).thenReturn(course);
@@ -46,22 +44,28 @@ class CourseServiceImplTest {
         String response = service.createCourse(course);
         assertEquals("Course Saved Successfully", response);
 
-        Mockito.verify(repository, Mockito.times(1)).save(course);
+        Mockito.verify(repository).save(course);
+        Mockito.verify(repository, Mockito.times(1)).findById(course.getCourseId());
     }
 
     @Test
     void createCourseAlreadyExistsTest() {
-        Course course = new Course(1, "Java Basics", "Introduction to Java", "Programming", 101, "Basic coding skills", 30);
+        Course course = new Course(1, "Java Basics", "Introduction to Java", "Programming", 101, "Basic coding skills", 30, 
+                                   "Existing course content", Arrays.asList("https://youtube.com/existing-course"));
 
         Mockito.when(repository.findById(course.getCourseId())).thenReturn(Optional.of(course));
 
         String response = service.createCourse(course);
         assertEquals("Course Aldready Exist", response);
+
+        Mockito.verify(repository, Mockito.times(1)).findById(course.getCourseId());
+        Mockito.verify(repository, Mockito.never()).save(course);
     }
 
     @Test
     void updateCourseTest() throws CourseNotFound {
-        Course course = new Course(1, "Advanced Java", "Deep dive into Java", "Programming", 102, "Java basics", 45);
+        Course course = new Course(1, "Advanced Java", "Deep dive into Java", "Programming", 102, "Java basics required", 45,
+                                   "Advanced Java content", Arrays.asList("https://youtube.com/advanced-java"));
 
         Mockito.when(repository.findById(course.getCourseId())).thenReturn(Optional.of(course));
         Mockito.when(repository.save(course)).thenReturn(course);
@@ -69,59 +73,59 @@ class CourseServiceImplTest {
         Course updatedCourse = service.updateCourse(course);
         assertEquals(course, updatedCourse);
 
-        Mockito.verify(repository, Mockito.times(1)).save(course);
+        Mockito.verify(repository).save(course);
+        Mockito.verify(repository, Mockito.times(1)).findById(course.getCourseId());
     }
 
     @Test
     void updateCourseNotFoundTest() {
-        Course course = new Course(2, "Spring Boot", "Building microservices", "Development", 103, "Java & Spring", 40);
+        Course course = new Course(2, "Spring Boot", "Building microservices", "Development", 103, "Java & Spring required", 40, 
+                                   "Spring Boot course content", Arrays.asList("https://youtube.com/spring-boot"));
 
         Mockito.when(repository.findById(course.getCourseId())).thenReturn(Optional.empty());
 
         assertThrows(CourseNotFound.class, () -> service.updateCourse(course));
+
+        Mockito.verify(repository, Mockito.times(1)).findById(course.getCourseId());
+        Mockito.verify(repository, Mockito.never()).save(course);
     }
 
     @Test
     void deleteCourseTest() throws CourseNotFound {
         int courseId = 1;
-        Course course = new Course(courseId, "React Basics", "Frontend development", "Web", 104, "HTML & CSS", 35);
+        Course course = new Course(courseId, "React Basics", "Frontend development", "Web", 104, "HTML & CSS required", 35, 
+                                   "React fundamentals", Arrays.asList("https://youtube.com/react-basics"));
 
         Mockito.when(repository.findById(courseId)).thenReturn(Optional.of(course));
         Mockito.doNothing().when(repository).deleteById(courseId);
 
-
         String response = service.deleteCourse(courseId);
         assertEquals("Course Deleted", response);
 
-        Mockito.verify(repository, Mockito.times(1)).deleteById(courseId);
-        Mockito.verify(enrollmentClient, Mockito.times(1)).cancelEnrollmentsByCourseId(courseId);
-        Mockito.verify(quizClient, Mockito.times(1)).deleteQuizByCourseId(courseId);
+        Mockito.verify(repository).deleteById(courseId);
+        Mockito.verify(enrollmentClient).cancelEnrollmentsByCourseId(courseId);
+        Mockito.verify(quizClient).deleteQuizByCourseId(courseId);
     }
 
-   
-    
     @Test
     void deleteCourseNotFoundTest() {
         int courseId = 2;
 
-        // Mock repository to return empty optional
-        Mockito.when(repository.findById(Mockito.eq(courseId))).thenReturn(Optional.empty());
+        Mockito.when(repository.findById(courseId)).thenReturn(Optional.empty());
 
-        // Ensure exception is thrown
         assertThrows(CourseNotFound.class, () -> service.deleteCourse(courseId));
 
-        // Ensure delete and feign client methods were never called
-        Mockito.verify(repository, Mockito.never()).deleteById(Mockito.anyInt());
-        Mockito.verify(enrollmentClient, Mockito.never()).cancelEnrollmentsByCourseId(Mockito.anyInt());
-        Mockito.verify(quizClient, Mockito.never()).deleteQuizByCourseId(Mockito.anyInt());
+        Mockito.verify(repository, Mockito.times(1)).findById(courseId);
+        Mockito.verify(repository, Mockito.never()).deleteById(courseId);
+        Mockito.verify(enrollmentClient, Mockito.never()).cancelEnrollmentsByCourseId(courseId);
+        Mockito.verify(quizClient, Mockito.never()).deleteQuizByCourseId(courseId);
     }
-
-
 
     @Test
     void getCourseTest() throws CourseNotFound {
         int courseId = 1;
-        Course course = new Course(courseId, "AWS Fundamentals", "Cloud computing basics", "Cloud", 105, "Basic networking", 50);
+        Course course = new Course(courseId, "AWS Fundamentals", "Cloud computing basics", "Cloud", 105, "Basic networking", 50, 
+                                   "AWS cloud essentials", Arrays.asList("https://youtube.com/aws-fundamentals"));
 
         Mockito.when(repository.findById(courseId)).thenReturn(Optional.of(course));
 
@@ -143,8 +147,10 @@ class CourseServiceImplTest {
     @Test
     void getAllCoursesTest() {
         List<Course> courses = Arrays.asList(
-                new Course(1, "Python Basics", "Intro to Python", "Programming", 106, "No prerequisites", 40),
-                new Course(2, "Angular Advanced", "Frontend framework deep dive", "Web", 107, "Basic HTML", 45));
+                new Course(1, "Python Basics", "Intro to Python", "Programming", 106, "No prerequisites", 40, 
+                           "Python introduction", Arrays.asList("https://youtube.com/python-basics")),
+                new Course(2, "Angular Advanced", "Frontend framework deep dive", "Web", 107, "Basic HTML required", 45, 
+                           "Angular fundamentals", Arrays.asList("https://youtube.com/angular-advanced")));
 
         Mockito.when(repository.findAll()).thenReturn(courses);
 

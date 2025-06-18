@@ -17,7 +17,7 @@ public interface QuizService {
 
 	public abstract Quiz getQuizById(int quizId) throws QuizNotFound;
 
-	public abstract QuizSubmissionDTO evaluateQuiz(QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound;
+	public abstract QuizSubmission evaluateQuiz(QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound;
 
 	public abstract List<Quiz> getAllQuizzes();
 
@@ -34,5 +34,7 @@ public interface QuizService {
 	public abstract List<QuizSubmission> getAllQuizSubmissions();
 	
 	public abstract String deleteQuizSubmissionByUserId(int userId) throws QuizSubmissionNotFound;
+	
+	public abstract Boolean checkSubmission(int quizId,int userId);
 
 }

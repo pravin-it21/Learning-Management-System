@@ -82,12 +82,17 @@ public class QuizController {
 	}
 
 	@PostMapping("/submit")
-	public QuizSubmissionDTO evaluteQuiz(@RequestBody QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
+	public QuizSubmission evaluteQuiz(@RequestBody QuizSubmission quizSubmission) throws QuizNotFound, QuizSubmissionNotFound {
 		return quizService.evaluateQuiz(quizSubmission);
 	}
 	
 	@DeleteMapping("/deleteQuizSubmissionByUserId/{uid}")
 	public String deleteQuizSubmissionByUserId(@PathVariable("uid") int userId) throws QuizSubmissionNotFound  {
 		return quizService.deleteQuizSubmissionByUserId(userId);
+	}
+	
+	@GetMapping("/checkSubmission/{uid}/{qid}")
+	public Boolean checkSubmission(@PathVariable("uid") int userId,@PathVariable("qid") int quizId){
+		return quizService.checkSubmission(userId,quizId);
 	}
 }

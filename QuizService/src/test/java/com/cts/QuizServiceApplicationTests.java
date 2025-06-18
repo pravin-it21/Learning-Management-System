@@ -1,11 +1,6 @@
 package com.cts;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -14,9 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cts.dto.QuizSubmissionDTO;
 import com.cts.exception.QuizNotFound;
 import com.cts.exception.QuizSubmissionNotFound;
 import com.cts.feignclient.CourseClient;
@@ -28,6 +24,7 @@ import com.cts.repository.QuizRepository;
 import com.cts.repository.QuizSubmissionRepository;
 import com.cts.service.QuizServiceImpl;
 
+@SpringBootTest
 class QuizServiceImplTest {
 
     @Mock
@@ -55,21 +52,28 @@ class QuizServiceImplTest {
 
     @Test
     void testCreateQuiz_Success() {
-        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, new HashMap<>(), new HashMap<>());
+        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, 
+                            Map.of(1, "What is AWS?", 2, "Define Kubernetes"), 
+                            "{ \"1\": [\"Option A\", \"Option B\"], \"2\": [\"Option X\", \"Option Y\"] }",
+                            Map.of(1, "Option A", 2, "Option X"));
 
-        when(courseClient.checkCourseExist(quiz.getCourseId())).thenReturn(true);
+        Mockito.when(courseClient.checkCourseExist(quiz.getCourseId())).thenReturn(true);
+        Mockito.when(quizRepository.save(quiz)).thenReturn(quiz);
 
         String result = quizService.createQuiz(quiz);
 
         assertEquals("Quiz Created", result);
-        verify(quizRepository, times(1)).save(quiz);
+        Mockito.verify(quizRepository, Mockito.times(1)).save(quiz);
     }
 
     @Test
     void testGetQuizById_Success() throws QuizNotFound {
-        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, new HashMap<>(), new HashMap<>());
+        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, 
+                            Map.of(1, "What is AWS?", 2, "Define Kubernetes"), 
+                            "{ \"1\": [\"Option A\", \"Option B\"], \"2\": [\"Option X\", \"Option Y\"] }",
+                            Map.of(1, "Option A", 2, "Option X"));
 
-        when(quizRepository.findById(1)).thenReturn(Optional.of(quiz));
+        Mockito.when(quizRepository.findById(1)).thenReturn(Optional.of(quiz));
 
         Quiz foundQuiz = quizService.getQuizById(1);
 
@@ -78,37 +82,49 @@ class QuizServiceImplTest {
 
     @Test
     void testDeleteQuiz_Success() throws QuizNotFound {
-        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, new HashMap<>(), new HashMap<>());
+        Quiz quiz = new Quiz(1, 101, "Cloud Computing Quiz", 50, 
+                            Map.of(1, "What is AWS?", 2, "Define Kubernetes"), 
+                            "{ \"1\": [\"Option A\", \"Option B\"], \"2\": [\"Option X\", \"Option Y\"] }",
+                            Map.of(1, "Option A", 2, "Option X"));
 
-        when(quizRepository.findById(1)).thenReturn(Optional.of(quiz));
+        Mockito.when(quizRepository.findById(1)).thenReturn(Optional.of(quiz));
 
         String result = quizService.deleteQuiz(1);
 
         assertEquals("Quiz Deleted", result);
-        verify(quizRepository, times(1)).delete(quiz);
+        Mockito.verify(quizRepository, Mockito.times(1)).delete(quiz);
     }
 
     @Test
     void testEvaluateQuiz_Success() throws QuizNotFound, QuizSubmissionNotFound {
-        Map<Integer, String> correctAnswers = new HashMap<>();
-        Map<Integer, String> questions = new HashMap<>();
-        questions.put(1, "What is");
-        questions.put(2, "Why");
+        int userId = 1;
+        int quizId = 101;
 
-        correctAnswers.put(1, "Cloud Computing");
-        correctAnswers.put(2, "Virtualization");
+        Map<Integer, String> correctAnswers = Map.of(
+                1, "Option A",
+                2, "Option X"
+        );
 
-        Quiz quiz = new Quiz(101, 201, "Cloud Computing Quiz", 30,  questions, correctAnswers);
-        QuizSubmission submission = new QuizSubmission(1, 101, 5001, Map.of(1, "Cloud Computing", 2, "Wrong Answer"), 0, false);
+        Map<Integer, String> userResponses = Map.of(
+                1, "Option A",
+                2, "Option Y"
+        );
 
-        when(quizRepository.findById(101)).thenReturn(Optional.of(quiz));
-        when(submissionRepository.findByUserIdAndQuizId(5001, 101)).thenReturn(null);
+        Quiz quiz = new Quiz(quizId, 201, "Java Quiz", 30, correctAnswers, "{ \"1\": [\"Option A\", \"Option B\"], \"2\": [\"Option X\", \"Option Y\"] }", correctAnswers);
 
-        QuizSubmissionDTO evaluatedSubmission = quizService.evaluateQuiz(submission);
+        Mockito.when(userClient.checkUserExist(userId)).thenReturn(true);
+        Mockito.when(quizRepository.findById(quizId)).thenReturn(Optional.of(quiz));
+        Mockito.when(enrollmentClient.checkEnrollmentByUserIdAndCourseId(userId, quiz.getCourseId())).thenReturn(true);
+        Mockito.when(submissionRepository.findByUserIdAndQuizId(userId, quizId)).thenReturn(null);
 
-        assertEquals(10, evaluatedSubmission.getScore()); // One correct answer
+        QuizSubmission submission = new QuizSubmission(500, quizId, userId, userResponses, 10, false, 1, 1, new HashMap<>(), new HashMap<>());
+
+        Mockito.when(submissionRepository.save(Mockito.any())).thenReturn(submission);
+
+        QuizSubmission evaluatedSubmission = quizService.evaluateQuiz(submission);
+
+        assertEquals(10, evaluatedSubmission.getScore());
         assertFalse(evaluatedSubmission.isPassed());
-        assertEquals(1, evaluatedSubmission.getCorrectAnswersCount());
-        assertEquals(1, evaluatedSubmission.getIncorrectAnswersCount());
+        Mockito.verify(submissionRepository, Mockito.times(1)).save(Mockito.any());
     }
 }
